@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FortuneRegistry.Api.Controllers
@@ -11,14 +7,23 @@ namespace FortuneRegistry.Api.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> GetAll()
+        [HttpGet("incomes")]
+        public IEnumerable<string> GetIncomeTransactions(int offset = 0, int limit = 25)
         {
             return new List<string>()
             {
-                "apple",
-                "orange",
-                "lemon"
+                "income1",
+                "income2"
+            };
+        }
+
+        [HttpGet("expenses")]
+        public IEnumerable<string> GetExpensesTransactions(int offset = 0, int limit = 25)
+        {
+            return new List<string>()
+            {
+                "expense1",
+                "expense2"
             };
         }
     }
