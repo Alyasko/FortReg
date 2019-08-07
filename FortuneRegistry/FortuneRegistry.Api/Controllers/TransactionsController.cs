@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FortuneRegistry.Shared.Models.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FortuneRegistry.Api.Controllers
@@ -15,6 +16,12 @@ namespace FortuneRegistry.Api.Controllers
                 "income1",
                 "income2"
             };
+        }
+
+        [HttpPost("incomes")]
+        public ActionResult AddIncomeTransaction(Transaction transaction)
+        {
+            return CreatedAtAction(nameof(AddIncomeTransaction), transaction);
         }
 
         [HttpGet("expenses")]
