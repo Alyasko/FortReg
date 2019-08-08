@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Shared.Models.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,30 +9,31 @@ namespace FortuneRegistry.Api.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
-        [HttpGet("incomes")]
-        public IEnumerable<string> GetIncomeTransactions(int offset = 0, int limit = 25)
+        private readonly TransactionsService _transactionsService;
+
+        public TransactionsController(TransactionsService transactionsService)
         {
-            return new List<string>()
-            {
-                "income1",
-                "income2"
-            };
+            _transactionsService = transactionsService;
+        }
+
+        [HttpGet("incomes")]
+        public IEnumerable<Transaction> GetIncomes(int offset = 0, int limit = 25)
+        {
+            return _transactionsService.GetIncomes();
         }
 
         [HttpPost("incomes")]
-        public ActionResult AddIncomeTransaction(Transaction transaction)
+        public ActionResult AddIncome(Transaction transaction)
         {
-            return CreatedAtAction(nameof(AddIncomeTransaction), transaction);
+            _transactionsService.Add(transaction);
+
+            return CreatedAtAction(nameof(AddIncome), transaction);
         }
 
         [HttpGet("expenses")]
-        public IEnumerable<string> GetExpensesTransactions(int offset = 0, int limit = 25)
+        public IEnumerable<Transaction> GetExpenses(int offset = 0, int limit = 25)
         {
-            return new List<string>()
-            {
-                "expense1",
-                "expense2"
-            };
+            return _transactionsService.GetExpenses();
         }
     }
 }
