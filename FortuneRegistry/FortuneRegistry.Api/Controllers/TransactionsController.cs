@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FortuneRegistry.Core.Transactions;
+using FortuneRegistry.Shared.Models;
 using FortuneRegistry.Shared.Models.Transactions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,12 @@ namespace FortuneRegistry.Api.Controllers
         public IEnumerable<Transaction> GetExpenses(int offset = 0, int limit = 25)
         {
             return _transactionsService.GetExpenses();
+        }
+
+        [HttpGet("currencies")]
+        public IEnumerable<Currency> GetCurrencies()
+        {
+            return _transactionsService.GetCurrencies();
         }
     }
 }
