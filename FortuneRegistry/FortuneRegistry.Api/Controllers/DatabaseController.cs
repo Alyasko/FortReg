@@ -9,25 +9,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FortuneRegistry.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class DatabaseController : Controller
     {
-        private readonly DatabaseService _service;
+        private readonly DatabaseService _serviceDb;
 
-        public DatabaseController(DatabaseService service)
+        public DatabaseController(DatabaseService serviceDb)
         {
-            _service = service;
+            _serviceDb = serviceDb;
         }
 
-        [HttpPost]
+        [HttpPost("seed")]
         public ActionResult Seed()
         {
-            _service.SeedRandom();
+            // TODO: add auth.
+            _serviceDb.SeedRandom();
 
             return Accepted();
         }
 
+        [HttpPost("delete")]
+        public ActionResult Delete()
+        {
+            // TODO: add auth.
+            if (_serviceDb.DeleteDatabase())
+                return Accepted();
 
+            return Conflict();
+        }
 
         // GET: api/<controller>
         //[HttpGet]

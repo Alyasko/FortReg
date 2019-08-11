@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FortuneRegistry.Core.Transactions;
+using FortuneRegistry.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,19 @@ namespace FortuneRegistry.Api
             services.AddControllers();
 
             services.AddScoped<TransactionsService>();
+            services.AddScoped<TransactionsRepository>();
+
             services.AddScoped<FamilyMembersService>();
+            services.AddScoped<FamilyMembersRepository>();
+
+            services.AddScoped<CategoriesService>();
+            services.AddScoped<CategoriesRepository>();
+
+            services.AddScoped<SummaryService>();
+            services.AddScoped<PlansRepository>();
+            services.AddScoped<DatabaseService>();
+
+            services.AddScoped<CurrenciesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

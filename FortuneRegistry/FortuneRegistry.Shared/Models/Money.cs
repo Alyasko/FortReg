@@ -4,8 +4,18 @@ using System.Text;
 
 namespace FortuneRegistry.Shared.Models
 {
-    public class Money
+    public class Money : BaseDbModel
     {
+        public Money()
+        {
+            
+        }
+        public Money(decimal value, Currency currency)
+        {
+            Value = value;
+            Currency = currency;
+        }
+
         public Currency Currency { get; set; }
         public decimal Value { get; set; }
     }

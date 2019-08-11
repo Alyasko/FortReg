@@ -23,18 +23,18 @@ namespace FortuneRegistry.Api.Controllers
             return _transactionsService.GetIncomes();
         }
 
-        [HttpPost("incomes")]
-        public ActionResult AddIncome(Transaction transaction)
-        {
-            _transactionsService.Add(transaction);
-
-            return CreatedAtAction(nameof(AddIncome), transaction);
-        }
-
         [HttpGet("expenses")]
         public IEnumerable<Transaction> GetExpenses(int offset = 0, int limit = 25)
         {
             return _transactionsService.GetExpenses();
+        }
+
+        [HttpPost]
+        public ActionResult AddTransaction(Transaction transaction)
+        {
+            _transactionsService.Add(transaction);
+
+            return CreatedAtAction(nameof(AddTransaction), transaction);
         }
 
         [HttpGet("currencies")]

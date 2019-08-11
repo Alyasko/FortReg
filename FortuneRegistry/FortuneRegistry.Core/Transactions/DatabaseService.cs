@@ -43,5 +43,10 @@ namespace FortuneRegistry.Core.Transactions
             };
             _currenciesRepository.Add(currencies);
         }
+
+        public bool DeleteDatabase()
+        {
+            return _categoriesRepository.DeleteDatabaseFile();
+        }
     }
 }

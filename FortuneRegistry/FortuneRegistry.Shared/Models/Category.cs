@@ -1,7 +1,11 @@
 ﻿namespace FortuneRegistry.Shared.Models
 {
-    public class Category
+    public class Category : BaseDbModel
     {
+        public Category()
+        {
+            
+        }
         public Category(string name)
         {
             Name = name;

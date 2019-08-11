@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text;
 using LiteDB;
 
@@ -32,6 +34,24 @@ namespace FortuneRegistry.Persistence
         public IEnumerable<T> GetAll()
         {
             return Collection.FindAll();
+        }
+
+        public bool DeleteDatabaseFile()
+        {
+            try
+            {
+                if (File.Exists(DatabaseFileName))
+                {
+                    File.Delete(DatabaseFileName);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public void Dispose()
