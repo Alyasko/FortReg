@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortuneRegistry.Core", "For
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortuneRegistry.Persistence", "FortuneRegistry.Persistence\FortuneRegistry.Persistence.csproj", "{57C46102-7315-408E-8F98-E789C4BFE54E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortuneRegistry.Android", "FortuneRegistry.Android\FortuneRegistry.Android.csproj", "{27FC8BC5-8F27-4152-8CEE-CE90FB26BB96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{57C46102-7315-408E-8F98-E789C4BFE54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57C46102-7315-408E-8F98-E789C4BFE54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57C46102-7315-408E-8F98-E789C4BFE54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27FC8BC5-8F27-4152-8CEE-CE90FB26BB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27FC8BC5-8F27-4152-8CEE-CE90FB26BB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27FC8BC5-8F27-4152-8CEE-CE90FB26BB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27FC8BC5-8F27-4152-8CEE-CE90FB26BB96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
