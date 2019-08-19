@@ -27,7 +27,7 @@ namespace FortuneRegistry.Android
             _btnIncrease = FindViewById<Button>(Resource.Id.btnIncrease);
             _tvCounter = FindViewById<TextView>(Resource.Id.tvCounter);
             
-            _tvCounter.SetOnClickListener();
+            //_tvCounter.SetOnClickListener();
         }
 
         private void TvCounterOnClick(object sender, EventArgs e)
