@@ -24,8 +24,8 @@ namespace FortuneRegistry.Persistence
 
         public BsonValue Add(T item)
         {
-            if (item.Id != 0)
-                item.Id = 0;
+            //if (item.Id != 0)
+            //    item.Id = 0;
 
             return Collection.Insert(item);
         }

@@ -6,6 +6,6 @@ namespace FortuneRegistry.Shared.Models
 {
     public interface IBaseDbModel
     {
-        int Id { get; set; }
+        //int Id { get; set; }
     }
 }

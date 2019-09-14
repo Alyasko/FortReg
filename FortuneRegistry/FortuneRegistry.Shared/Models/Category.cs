@@ -13,5 +13,6 @@
 
         public string Name { get; set; }
         public Category[] SubCategories { get; set; }
+        public int Id { get; set; }
     }
 }
