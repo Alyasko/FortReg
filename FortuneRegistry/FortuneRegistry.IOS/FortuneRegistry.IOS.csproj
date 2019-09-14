@@ -133,11 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <EmbeddedResource Include="gcred.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <EmbeddedResource Include="Config\gcred.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

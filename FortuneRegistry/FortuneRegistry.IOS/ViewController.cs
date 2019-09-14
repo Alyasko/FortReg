@@ -92,7 +92,7 @@ namespace FortuneRegistry.IOS
             UserCredential credential;
 
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ViewController)).Assembly;
-            Stream stream1 = assembly.GetManifestResourceStream("FortuneRegistry.IOS.gcred.json");
+            Stream stream1 = assembly.GetManifestResourceStream("FortuneRegistry.IOS.Config.gcred.json");
             string text = "";
             using (var reader = new System.IO.StreamReader(stream1))
             {
