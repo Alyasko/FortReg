@@ -10,7 +10,7 @@ namespace FortuneRegistry.IOS.Model
 {
     class CategoryPickerModel : UIPickerViewModel
     {
-        public string[] names = new string[]
+        public List<string> Names = new List<string>()
         {
             "Транспорт",
             "Бытовые",
@@ -31,12 +31,12 @@ namespace FortuneRegistry.IOS.Model
 
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
-            return names.Length;
+            return Names.Count;
         }
 
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            return names[row];
+            return Names[(int)row];
         }
 
         public override void Selected(UIPickerView pickerView, nint row, nint component)

@@ -132,6 +132,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Model\CategoryPickerModel.cs" />
     <Compile Include="Model\CurrencyPickerModel.cs" />
+    <Compile Include="Model\PickerModel.cs" />
     <Compile Include="PhoneTranslator.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">

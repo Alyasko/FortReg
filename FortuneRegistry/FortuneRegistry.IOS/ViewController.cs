@@ -7,6 +7,9 @@ namespace FortuneRegistry.IOS
 {
     public partial class ViewController : UIViewController
     {
+        private readonly CurrencyPickerModel _currencyPickerModel = new CurrencyPickerModel();
+        private readonly CategoryPickerModel _categoryPickerModel = new CategoryPickerModel();
+
         public ViewController (IntPtr handle) : base (handle)
         {
         }
@@ -15,12 +18,8 @@ namespace FortuneRegistry.IOS
         {
             base.ViewDidLoad ();
 
-
-            var currencyPickerModel = new CurrencyPickerModel();
-            PickerCurrency.Model = currencyPickerModel;
-
-            var categoryPickerModel = new CategoryPickerModel();
-            PickerCategory.Model = categoryPickerModel;
+            PickerCurrency.Model = _currencyPickerModel;
+            PickerCategory.Model = _categoryPickerModel;
 
 
             //TranslateButton.TouchUpInside += (object sender, EventArgs e) =>
@@ -68,7 +67,8 @@ namespace FortuneRegistry.IOS
 
         partial void BtnAdd_TouchUpInside(UIButton sender)
         {
-            
+            _categoryPickerModel.Names.Add("Test");
+            PickerCategory.Model = _categoryPickerModel;
         }
     }
 }
