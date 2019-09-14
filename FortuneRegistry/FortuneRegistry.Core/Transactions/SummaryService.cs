@@ -58,8 +58,8 @@ namespace FortuneRegistry.Core.Transactions
         {
             var incomes = new List<CategorySummary>();
 
-            var plannedIncomes = _plansRepository.GetExpensesPlan(month);
-            var transactions = _transactionsRepository.GetExpenses(month).ToArray();
+            var plannedIncomes = _plansRepository.GetIncomesPlan(month);
+            var transactions = _transactionsRepository.GetIncomes(month).ToArray();
 
             foreach (var plan in plannedIncomes)
             {
@@ -67,11 +67,19 @@ namespace FortuneRegistry.Core.Transactions
                 {
                     Plan = plan,
                     Type = TransactionType.Income,
-                    Transactions = transactions
+                    Transactions = transactions/*.Where(x => x.Category.Id == plan.Id)*/
                 });
             }
 
             return incomes;
+        }
+
+        public void AddPlan(Plan plan)
+        {
+            if(plan.Created == null)
+                plan.Created = DateTime.UtcNow;                
+
+            _plansRepository.Add(plan);
         }
     }
 }

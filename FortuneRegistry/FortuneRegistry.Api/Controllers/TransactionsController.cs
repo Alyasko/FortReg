@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Shared.Models;
 using FortuneRegistry.Shared.Models.Transactions;
@@ -11,26 +13,28 @@ namespace FortuneRegistry.Api.Controllers
     public class TransactionsController : ControllerBase
     {
         private readonly TransactionsService _transactionsService;
+        private readonly IMapper _mapper;
 
-        public TransactionsController(TransactionsService transactionsService)
+        public TransactionsController(TransactionsService transactionsService, IMapper mapper)
         {
             _transactionsService = transactionsService;
+            _mapper = mapper;
         }
 
         [HttpGet("incomes")]
-        public IEnumerable<Transaction> GetIncomes(int offset = 0, int limit = 25)
+        public IEnumerable<TransactionResponse> GetIncomes(int offset = 0, int limit = 25)
         {
-            return _transactionsService.GetIncomes();
+            return _transactionsService.GetIncomes().Select(x => _mapper.Map<TransactionResponse>(x));
         }
 
         [HttpGet("expenses")]
-        public IEnumerable<Transaction> GetExpenses(int offset = 0, int limit = 25)
+        public IEnumerable<TransactionResponse> GetExpenses(int offset = 0, int limit = 25)
         {
-            return _transactionsService.GetExpenses();
+            return _transactionsService.GetExpenses().Select(x => _mapper.Map<TransactionResponse>(x));
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(Transaction transaction)
+        public ActionResult AddTransaction(TransactionRequest transaction)
         {
             _transactionsService.Add(transaction);
 

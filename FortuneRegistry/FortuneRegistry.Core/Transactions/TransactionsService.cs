@@ -9,7 +9,7 @@ namespace FortuneRegistry.Core.Transactions
 {
     public class TransactionsService
     {
-        public void Add(Transaction transaction)
+        public void Add(TransactionRequest transaction)
         {
             if(transaction.Date == null)
                 transaction.Date = DateTime.UtcNow;

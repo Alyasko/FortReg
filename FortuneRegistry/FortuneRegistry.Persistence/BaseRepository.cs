@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using FortuneRegistry.Shared.Models;
 using LiteDB;
 
 namespace FortuneRegistry.Persistence
 {
-    public abstract class BaseRepository<T> : IDisposable
+    public abstract class BaseRepository<T> : IDisposable where T: IBaseDbModel
     {
         public const string DatabaseFileName = "fortreg.db";
 
@@ -23,6 +24,9 @@ namespace FortuneRegistry.Persistence
 
         public BsonValue Add(T item)
         {
+            if (item.Id != 0)
+                item.Id = 0;
+
             return Collection.Insert(item);
         }
 

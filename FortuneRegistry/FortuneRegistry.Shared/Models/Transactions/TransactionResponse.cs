@@ -2,7 +2,7 @@
 
 namespace FortuneRegistry.Shared.Models.Transactions
 {
-    public class Transaction : ITransaction
+    public class TransactionResponse : ITransaction
     {
         public DateTime? Date { get; set; }
         public decimal Amount { get; set; }
