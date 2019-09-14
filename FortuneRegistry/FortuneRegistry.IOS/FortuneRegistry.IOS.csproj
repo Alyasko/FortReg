@@ -124,7 +124,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Config\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
@@ -132,24 +131,30 @@
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
-    <EmbeddedResource Include="gcred.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Include="Config\.gitignore" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\GSheets.config.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Model\CategoryPickerModel.cs" />
-    <Compile Include="Model\CurrencyPickerModel.cs" />
-    <Compile Include="Model\PickerModel.cs" />
+    <Compile Include="Model\BaseController.cs" />
+    <Compile Include="Model\GoogleSheetsClient.cs" />
+    <Compile Include="Model\Ui\IPickerModel.cs" />
+    <Compile Include="Model\Ui\PickerModel.cs" />
+    <Compile Include="Model\Ui\StringPickerModelBase.cs" />
     <Compile Include="PhoneTranslator.cs" />
+    <Compile Include="Utils\UiHelper.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\gcred.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using FortuneRegistry.IOS.Model;
+using FortuneRegistry.IOS.Model.Ui;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -14,10 +16,12 @@ using UIKit;
 
 namespace FortuneRegistry.IOS
 {
-    public partial class ViewController : UIViewController
+    public partial class ViewController : BaseController
     {
-        private readonly CurrencyPickerModel _currencyPickerModel = new CurrencyPickerModel();
-        private readonly CategoryPickerModel _categoryPickerModel = new CategoryPickerModel();
+        private readonly StringPickerModelBase _currencyPickerModel = new StringPickerModelBase();
+        private readonly StringPickerModelBase _categoryPickerModel = new StringPickerModelBase();
+
+        private readonly GoogleSheetsClient _googleSheetsClient = new GoogleSheetsClient();
 
         public ViewController(IntPtr handle) : base(handle)
         {
@@ -27,9 +31,11 @@ namespace FortuneRegistry.IOS
         {
             base.ViewDidLoad();
 
-            PickerCurrency.Model = _currencyPickerModel;
-            PickerCategory.Model = _categoryPickerModel;
+            TbDescription.ShouldReturn += TbShouldReturn;
+            TbAmount.ShouldReturn += TbShouldReturn;
 
+            FillCategories();
+            FillCurrencies();
 
             //TranslateButton.TouchUpInside += (object sender, EventArgs e) =>
             //{
@@ -68,6 +74,52 @@ namespace FortuneRegistry.IOS
             //};
         }
 
+        private string[][] ReadCellRange(string range)
+        {
+            var v = _googleSheetsClient.ReadCells(range);
+            if (v == null || v.Count == 0)
+            {
+                throw new InvalidOperationException("No cells from datasheet returned");
+            }
+
+            return v.Select(x => x.Select(z => z.ToString()).ToArray()).ToArray();
+        }
+
+        private void FillCategories()
+        {
+            _categoryPickerModel.Items.Clear();
+
+            var cats = ReadCellRange("Summary!B28:B50");
+
+            foreach (var i in cats)
+            {
+                _categoryPickerModel.Items.Add(i[0].ToString());
+            }
+
+            PickerCategory.Model = _categoryPickerModel;
+        }
+
+        private void FillCurrencies()
+        {
+            _currencyPickerModel.Items.Clear();
+
+            var cuurs = ReadCellRange("Summary!N9:N12");
+
+            foreach (var i in cuurs)
+            {
+                _currencyPickerModel.Items.Add(i[0].ToString());
+            }
+
+            PickerCurrency.Model = _currencyPickerModel;
+        }
+
+        private bool TbShouldReturn(UITextField textfield)
+        {
+            textfield.ResignFirstResponder();
+
+            return true;
+        }
+
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
@@ -76,84 +128,9 @@ namespace FortuneRegistry.IOS
 
         partial void BtnAdd_TouchUpInside(UIButton sender)
         {
-            _categoryPickerModel.Names.Add("Test");
-            PickerCategory.Model = _categoryPickerModel;
 
-            Test(null);
         }
 
-        // If modifying these scopes, delete your previously saved credentials
-        // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
-        static string[] Scopes = {SheetsService.Scope.SpreadsheetsReadonly};
-        static string ApplicationName = "Google Sheets API .NET Quickstart";
-
-        static void Test(string[] args)
-        {
-            UserCredential credential;
-
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ViewController)).Assembly;
-            Stream stream1 = assembly.GetManifestResourceStream("FortuneRegistry.IOS.gcred.json");
-            string text = "";
-            using (var reader = new System.IO.StreamReader(stream1))
-            {
-                text = reader.ReadToEnd();
-            }
-
-
-
-            var rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            File.WriteAllText(Path.Combine(rootFolder, "hello.txt"), "Hello!");
-
-            var files = Directory.GetFiles(rootFolder);
-
-            using (var stream =
-                new FileStream("gcreds.json", FileMode.Open, FileAccess.Read))
-            {
-                // The file token.json stores the user's access and refresh tokens, and is created
-                // automatically when the authorization flow completes for the first time.
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
-            // Define request parameters.
-            String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            String range = "Class Data!A2:E";
-            SpreadsheetsResource.ValuesResource.GetRequest request =
-                service.Spreadsheets.Values.Get(spreadsheetId, range);
-
-            // Prints the names and majors of students in a sample spreadsheet:
-            // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-            ValueRange response = request.Execute();
-            IList<IList<Object>> values = response.Values;
-            if (values != null && values.Count > 0)
-            {
-                Console.WriteLine("Name, Major");
-                foreach (var row in values)
-                {
-                    // Print columns A and E, which correspond to indices 0 and 4.
-                    Console.WriteLine("{0}, {1}", row[0], row[4]);
-                }
-            }
-            else
-            {
-                Console.WriteLine("No data found.");
-            }
-
-            Console.Read();
-        }
+       
     }
 }

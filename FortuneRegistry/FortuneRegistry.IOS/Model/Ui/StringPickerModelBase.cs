@@ -6,23 +6,11 @@ using System.Text;
 using Foundation;
 using UIKit;
 
-namespace FortuneRegistry.IOS.Model
+namespace FortuneRegistry.IOS.Model.Ui
 {
-    class CategoryPickerModel : UIPickerViewModel
+    public class StringPickerModelBase : UIPickerViewModel, IPickerModel
     {
-        public List<string> Names = new List<string>()
-        {
-            "Транспорт",
-            "Бытовые",
-            "Личные"
-        };
-
-        //private UILabel personLabel;
-
-        public CategoryPickerModel()
-        {
-            //this.personLabel = personLabel;
-        }
+        public List<string> Items { get; set; } = new List<string>();
 
         public override nint GetComponentCount(UIPickerView pickerView)
         {
@@ -31,12 +19,12 @@ namespace FortuneRegistry.IOS.Model
 
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
-            return Names.Count;
+            return Items.Count;
         }
 
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            return Names[(int)row];
+            return Items[(int)row];
         }
 
         public override void Selected(UIPickerView pickerView, nint row, nint component)
