@@ -21,6 +21,14 @@ namespace FortuneRegistry.Api.Controllers
             _summaryService = summaryService;
         }
 
+        [HttpPost()]
+        public ActionResult Add(Plan plan)
+        {
+            _summaryService.AddPlan(plan);
+
+            return Created(nameof(Add), plan);
+        }
+
         [HttpGet("expenses")]
         public IEnumerable<CategorySummary> GetExpenses(DateTime? dateMonth)
         {

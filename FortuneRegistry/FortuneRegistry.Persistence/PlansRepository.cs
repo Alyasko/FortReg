@@ -12,12 +12,12 @@ namespace FortuneRegistry.Persistence
 
         public IEnumerable<Plan> GetExpensesPlan(DateTime dateMonth)
         {
-            return Collection.Find(x => x.Created.Month == dateMonth.Month && x.Created.Year == dateMonth.Year && x.Type == TransactionType.Expense);
+            return Collection.Find(x => x.Created != null && x.Type == TransactionType.Expense && dateMonth.Month == x.Created.Value.Month && dateMonth.Year == x.Created.Value.Year);
         }
 
         public IEnumerable<Plan> GetIncomesPlan(DateTime dateMonth)
         {
-            return Collection.Find(x => x.Created.Month == dateMonth.Month && x.Created.Year == dateMonth.Year && x.Type == TransactionType.Income);
+            return Collection.Find(x => x.Created != null && x.Type == TransactionType.Income && dateMonth.Month == x.Created.Value.Month && dateMonth.Year == x.Created.Value.Year);
         }
     }
 }

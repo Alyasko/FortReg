@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FortuneRegistry.Shared.Models
 {
-    public class Currency : BaseDbModel
+    public class Currency : IBaseDbModel
     {
         public Currency()
         {

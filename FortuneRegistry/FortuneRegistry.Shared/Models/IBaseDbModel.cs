@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FortuneRegistry.Shared.Models
 {
-    public abstract class BaseDbModel
+    public interface IBaseDbModel
     {
-        public int Id { get; set; }
+        int Id { get; set; }
     }
 }

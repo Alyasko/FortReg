@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,17 @@ namespace FortuneRegistry.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                //cfg.CreateMap<Foo, FooDto>();
+                //cfg.CreateMap<Bar, BarDto>();
+            });
+
+            configuration.AssertConfigurationIsValid();
+            var mapper = configuration.CreateMapper();
+
+            services.AddSingleton<IMapper>(mapper);
 
             services.AddScoped<TransactionsService>();
             services.AddScoped<TransactionsRepository>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using FortuneRegistry.Shared.Models.Transactions;
 
@@ -26,7 +27,7 @@ namespace FortuneRegistry.Persistence
 
         public IEnumerable<Transaction> GetExpenses(DateTime dateMonth)
         {
-            return Collection.Find(x => x.Date != null && (x.Type == TransactionType.Expense && x.Date.Value.Year == dateMonth.Year && x.Date.Value.Month == dateMonth.Month));
+            return Collection.Find(x => x.Date != null && (x.Type == TransactionType.Expense && dateMonth.Year == x.Date.Value.Year && dateMonth.Month == x.Date.Value.Month));
         }
     }
 }
