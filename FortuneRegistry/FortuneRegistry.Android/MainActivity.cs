@@ -5,17 +5,18 @@ using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Content.PM;
+using Android.Support.Design.Widget;
+using Android.Support.V4.View;
+using Android.Support.V4.Widget;
+using Android.Views;
+using Debug = System.Diagnostics.Debug;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace FortuneRegistry.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button _btnIncrease;
-        private TextView _tvCounter;
-
-        private int _counter = 0;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -23,19 +24,20 @@ namespace FortuneRegistry.Android
             
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
-
-            _btnIncrease = FindViewById<Button>(Resource.Id.btnIncrease);
-            _tvCounter = FindViewById<TextView>(Resource.Id.tvCounter);
-            
-            //_tvCounter.SetOnClickListener();
         }
 
-        private void TvCounterOnClick(object sender, EventArgs e)
-        {
-            _counter++;
 
-            _tvCounter.Text = $"{_counter}";
-        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)   
+        {  
+            switch (item.ItemId)   
+            {  
+//                case Android.Resource.Id.Home:  
+//                    drawerLayout.OpenDrawer(GravityCompat.Start);  
+//                    return true;  
+            }  
+            return base.OnOptionsItemSelected(item);  
+        }  
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {

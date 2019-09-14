@@ -1,13 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btnIncrease"
-        android:layout_width="match_parent"
-        android:text="Click me!"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvCounter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
-</RelativeLayout>
+    <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <!-- The Main Content View -->
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <android.support.design.widget.AppBarLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/toolbar_layout">
+                <!-- you can create separately and use it here Like this ,but for now i am doing inline for toolbar-->
+                <!--<include  
+                    layout="@layout/toolbar" />-->
+            </android.support.design.widget.AppBarLayout>
+            <FrameLayout
+                    android:id="@+id/content_frame"
+                    android:layout_below="@id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <!-- The Left Navigation Drawer -->
+        <android.support.design.widget.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_height="match_parent"
+                android:layout_width="240dp"
+                android:layout_gravity="start"
+                app:headerLayout="@layout/nav_header_main"
+                android:fitsSystemWindows="true" >
+
+
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>  
