@@ -26,11 +26,10 @@ namespace FortuneRegistry.IOS.Model
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ViewController)).Assembly;
 
             GoogleCredential cr;
-            using (var rStream = assembly.GetManifestResourceStream("FortuneRegistry.IOS.Config.gcred.json"))
+            using (var rStream = assembly.GetManifestResourceStream("FortuneRegistry.IOS.Config.gcreds.json"))
             {
                 cr = GoogleCredential.FromStream(rStream).CreateScoped(Scopes);
             }
-
 
             // Create Google Sheets API service.
             var service = new SheetsService(new BaseClientService.Initializer()

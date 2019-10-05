@@ -132,17 +132,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\.gitignore" />
-    <None Include="Info.plist" />
-    <None Include="Entitlements.plist" />
-    <EmbeddedResource Include="Config\gcred.json">
+    <EmbeddedResource Include="Config\gcreds.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\GSheets.config.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Model\BaseController.cs" />
+    <Compile Include="Model\CurrencyRates.cs" />
     <Compile Include="Model\GoogleSheetsClient.cs" />
     <Compile Include="Model\Ui\IPickerModel.cs" />
     <Compile Include="Model\Ui\PickerModel.cs" />
@@ -153,11 +154,6 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Config\gcred.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

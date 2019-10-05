@@ -33,6 +33,10 @@ namespace FortuneRegistry.IOS
 
             TbDescription.ShouldReturn += TbShouldReturn;
             TbAmount.ShouldReturn += TbShouldReturn;
+            TbDescription.EditingChanged += TbDescriptionOnEditingChanged;
+            TbAmount.EditingChanged += TbAmountOnEditingChanged;
+
+            _currencyPickerModel.ValueChanged += CurrencyPickerModelOnValueChanged;
 
             FillCategories();
             FillCurrencies();
@@ -72,6 +76,28 @@ namespace FortuneRegistry.IOS
             //        PresentViewController(alert, true, null);
             //    }
             //};
+        }
+
+        private void TbDescriptionOnEditingChanged(object sender, EventArgs e)
+        {
+            UpdateSummary();
+        }
+
+        private void CurrencyPickerModelOnValueChanged(object sender, EventArgs e)
+        {
+            UpdateSummary();
+        }
+
+        private void TbAmountOnEditingChanged(object sender, EventArgs e)
+        {
+            UpdateSummary();
+        }
+
+        private void UpdateSummary()
+        {
+            LblTotalAmount.Text = $"{TbAmount.Text} {_currencyPickerModel.SelectedItem}";
+            LblConversion.Text = $"1 USD = 25 {_currencyPickerModel.SelectedItem}";
+            LblDescription.Text = TbDescription.Text;
         }
 
         private string[][] ReadCellRange(string range)

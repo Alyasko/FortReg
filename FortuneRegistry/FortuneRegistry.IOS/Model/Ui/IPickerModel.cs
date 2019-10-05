@@ -11,5 +11,6 @@ namespace FortuneRegistry.IOS.Model.Ui
     public interface IPickerModel
     {
         List<string> Items { get; set; }
+        string SelectedItem { get; }
     }
 }
