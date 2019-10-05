@@ -22,9 +22,11 @@ namespace FortuneRegistry.IOS
         private readonly StringPickerModelBase _categoryPickerModel = new StringPickerModelBase();
 
         private readonly GoogleSheetsClient _googleSheetsClient = new GoogleSheetsClient();
+        private readonly Registry _registry;
 
         public ViewController(IntPtr handle) : base(handle)
         {
+            _registry = new Registry(_googleSheetsClient);
         }
 
         public override void ViewDidLoad()
@@ -37,9 +39,12 @@ namespace FortuneRegistry.IOS
             TbAmount.EditingChanged += TbAmountOnEditingChanged;
 
             _currencyPickerModel.ValueChanged += CurrencyPickerModelOnValueChanged;
+            _categoryPickerModel.ValueChanged += CategoryPickerModelOnValueChanged;
 
             FillCategories();
             FillCurrencies();
+
+            UpdateSummary();
 
             //TranslateButton.TouchUpInside += (object sender, EventArgs e) =>
             //{
@@ -78,6 +83,11 @@ namespace FortuneRegistry.IOS
             //};
         }
 
+        private void CategoryPickerModelOnValueChanged(object sender, EventArgs e)
+        {
+            UpdateSummary();
+        }
+
         private void TbDescriptionOnEditingChanged(object sender, EventArgs e)
         {
             UpdateSummary();
@@ -95,8 +105,13 @@ namespace FortuneRegistry.IOS
 
         private void UpdateSummary()
         {
-            LblTotalAmount.Text = $"{TbAmount.Text} {_currencyPickerModel.SelectedItem}";
-            LblConversion.Text = $"1 USD = 25 {_currencyPickerModel.SelectedItem}";
+            var amount = 0m;
+            if(decimal.TryParse(TbAmount.Text, out var a))
+                amount = a;
+
+            LblTotalAmount.Text = $"{(string.IsNullOrWhiteSpace(TbAmount.Text) ? "0" : TbAmount.Text)} {_currencyPickerModel.SelectedItem}";
+            LblAmountNormalized.Text = $" = {amount / CurrencyRates.Convert("USD", _currencyPickerModel.SelectedItem):F2} USD";
+            LblConversion.Text = $"1 USD = {CurrencyRates.Convert("USD", _currencyPickerModel.SelectedItem)} {_currencyPickerModel.SelectedItem}";
             LblDescription.Text = TbDescription.Text;
         }
 
@@ -113,30 +128,32 @@ namespace FortuneRegistry.IOS
 
         private void FillCategories()
         {
-            _categoryPickerModel.Items.Clear();
+            _categoryPickerModel.Clear();
 
             var cats = ReadCellRange("Summary!B28:B50");
 
             foreach (var i in cats)
             {
-                _categoryPickerModel.Items.Add(i[0].ToString());
+                _categoryPickerModel.Add(i[0].ToString());
             }
 
             PickerCategory.Model = _categoryPickerModel;
+
         }
 
         private void FillCurrencies()
         {
-            _currencyPickerModel.Items.Clear();
+            _currencyPickerModel.Clear();
 
             var cuurs = ReadCellRange("Summary!N9:N12");
 
             foreach (var i in cuurs)
             {
-                _currencyPickerModel.Items.Add(i[0].ToString());
+                _currencyPickerModel.Add(i[0].ToString());
             }
 
             PickerCurrency.Model = _currencyPickerModel;
+            _currencyPickerModel.SelectFirst();
         }
 
         private bool TbShouldReturn(UITextField textfield)
@@ -154,8 +171,28 @@ namespace FortuneRegistry.IOS
 
         partial void BtnAdd_TouchUpInside(UIButton sender)
         {
-            // TODO: move to constant and then to settings.
-            var nonEmpty = _googleSheetsClient.GetFirstEmptyCell("Transactions!B4:B500");
+            if(!ValidateInput())
+                return;
+
+            _registry.SaveExpense(TbAmount.Text, _currencyPickerModel.SelectedItem, _categoryPickerModel.SelectedItem, TbDescription.Text);
+
+            ShowMessage("Record added.");
+        }
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(TbAmount.Text))
+            {
+                ShowMessage("Please enter transaction amount.");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(TbDescription.Text))
+            {
+                ShowMessage("Please enter transaction description.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

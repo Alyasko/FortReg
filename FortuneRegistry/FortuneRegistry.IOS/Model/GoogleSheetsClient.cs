@@ -69,17 +69,17 @@ namespace FortuneRegistry.IOS.Model
             return new GSheetRange(r.TableName, $"{r.RangeStart.XString}{lastNumber}", null);
         }
 
-        public UpdateValuesResponse WriteRows(string rangeOffset, string[] data)
+        public UpdateValuesResponse WriteRows(string rangeOffset, IEnumerable<string> data)
         {
             return Write(rangeOffset, data, "ROWS");
         }
 
-        public UpdateValuesResponse WriteColumns(string rangeOffset, string[] data)
+        public UpdateValuesResponse WriteColumns(string rangeOffset, IEnumerable<string> data)
         {
             return Write(rangeOffset, data, "COLUMNS");
         }
 
-        private UpdateValuesResponse Write(string rangeOffset, string[] data, string majorDimension)
+        private UpdateValuesResponse Write(string rangeOffset, IEnumerable<string> data, string majorDimension)
         {
             ValueRange valueRange = new ValueRange
             {
@@ -91,7 +91,7 @@ namespace FortuneRegistry.IOS.Model
             };
 
             var update = Service.Spreadsheets.Values.Update(valueRange, GSheets.SheetId, rangeOffset);
-            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.INPUTVALUEOPTIONUNSPECIFIED;
+            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
             return update.Execute();
         }

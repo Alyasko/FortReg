@@ -10,7 +10,7 @@ namespace FortuneRegistry.IOS.Model
 {
     public class CurrencyRates
     {
-        public decimal Convert(string baseAsset, string quoteAsset)
+        public static decimal Convert(string baseAsset, string quoteAsset)
         {
             var all = baseAsset + quoteAsset;
             switch (all)
@@ -25,10 +25,10 @@ namespace FortuneRegistry.IOS.Model
                     return 0.9m;
                     break;
                 case "USDUSD":
-                    break;
+                    return 1.0m;
+                default:
+                    throw new IndexOutOfRangeException($"Unable to convert pair {all}");
             }
-
-            return 0;
         }
     }
 }

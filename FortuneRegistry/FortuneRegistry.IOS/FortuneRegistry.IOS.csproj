@@ -147,6 +147,7 @@
     <Compile Include="Model\GoogleSheetsClient.cs" />
     <Compile Include="Model\Range\GSheetCell.cs" />
     <Compile Include="Model\Range\GSheetRange.cs" />
+    <Compile Include="Model\Registry.cs" />
     <Compile Include="Model\Ui\IPickerModel.cs" />
     <Compile Include="Model\Ui\PickerModel.cs" />
     <Compile Include="Model\Ui\StringPickerModelBase.cs" />

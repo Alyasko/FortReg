@@ -10,7 +10,29 @@ namespace FortuneRegistry.IOS.Model.Ui
 {
     public class StringPickerModelBase : UIPickerViewModel, IPickerModel
     {
-        public List<string> Items { get; set; } = new List<string>();
+        private List<string> _items { get; set; } = new List<string>();
+        public void Add(string item)
+        {
+            _items.Add(item);
+            SelectedItem = item;
+        }
+
+        public void Clear()
+        {
+            _items.Clear();
+            SelectedItem = string.Empty;
+        }
+
+        public void SelectFirst()
+        {
+            SelectedItem = _items.FirstOrDefault() ?? string.Empty;
+        }
+
+        public string Get(int index)
+        {
+            return _items[index];
+        }
+
         public string SelectedItem { get; private set; } = string.Empty;
 
         public event EventHandler<EventArgs> ValueChanged;
@@ -22,17 +44,17 @@ namespace FortuneRegistry.IOS.Model.Ui
 
         public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
         {
-            return Items.Count;
+            return _items.Count;
         }
 
         public override string GetTitle(UIPickerView pickerView, nint row, nint component)
         {
-            return Items[(int)row];
+            return _items[(int)row];
         }
 
         public override void Selected(UIPickerView pickerView, nint row, nint component)
         {
-            SelectedItem = Items[(int)pickerView.SelectedRowInComponent(0)];
+            SelectedItem = _items[(int)pickerView.SelectedRowInComponent(0)];
 
             var si = (int)row;
             if (ValueChanged != null)

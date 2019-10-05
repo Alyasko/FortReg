@@ -10,7 +10,10 @@ namespace FortuneRegistry.IOS.Model.Ui
 {
     public interface IPickerModel
     {
-        List<string> Items { get; set; }
+        void Add(string item);
+        void Clear();
+        void SelectFirst();
+        string Get(int index);
         string SelectedItem { get; }
     }
 }
