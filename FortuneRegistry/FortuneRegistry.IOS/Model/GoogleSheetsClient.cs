@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using FortuneRegistry.IOS.Config;
+using FortuneRegistry.IOS.Model.Range;
 using Foundation;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
@@ -15,6 +16,9 @@ namespace FortuneRegistry.IOS.Model
 {
     public class GoogleSheetsClient
     {
+        private SheetsService _service;
+        private SheetsService Service => _service ?? (_service = CreateService());
+
         public GoogleSheetsClient()
         {
             
@@ -43,18 +47,58 @@ namespace FortuneRegistry.IOS.Model
 
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
-        static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
+        static string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "FortReg";
 
-        public IList<IList<Object>> ReadCells(string range)
+        public IList<IList<object>> ReadCells(string range)
         {
-            var service = CreateService();
-
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(GSheets.SheetId, range);
+            SpreadsheetsResource.ValuesResource.GetRequest request = Service.Spreadsheets.Values.Get(GSheets.SheetId, range);
 
             var response = request.Execute();
 
             return response.Values;
+        }
+
+        public GSheetRange GetFirstEmptyCell(string range)
+        {
+            var r = GSheetRange.Parse(range);
+            var all = ReadCells(range);
+
+            var lastNumber = r.RangeStart.YNumber + all.Count;
+
+            return new GSheetRange(r.TableName, $"{r.RangeStart.XString}{lastNumber}", null);
+        }
+
+        public UpdateValuesResponse WriteRows(string rangeOffset, string[] data)
+        {
+            return Write(rangeOffset, data, "ROWS");
+        }
+
+        public UpdateValuesResponse WriteColumns(string rangeOffset, string[] data)
+        {
+            return Write(rangeOffset, data, "COLUMNS");
+        }
+
+        private UpdateValuesResponse Write(string rangeOffset, string[] data, string majorDimension)
+        {
+            ValueRange valueRange = new ValueRange
+            {
+                MajorDimension = majorDimension, //"ROWS";//COLUMNS
+                Values = new List<IList<object>>
+                {
+                    data.Cast<object>().ToList()
+                }
+            };
+
+            var update = Service.Spreadsheets.Values.Update(valueRange, GSheets.SheetId, rangeOffset);
+            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.INPUTVALUEOPTIONUNSPECIFIED;
+
+            return update.Execute();
+        }
+
+        public void Test()
+        {
+            ReadCells("Transactions!B1:B100");
         }
     }
 }

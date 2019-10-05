@@ -154,9 +154,8 @@ namespace FortuneRegistry.IOS
 
         partial void BtnAdd_TouchUpInside(UIButton sender)
         {
-
+            // TODO: move to constant and then to settings.
+            var nonEmpty = _googleSheetsClient.GetFirstEmptyCell("Transactions!B4:B500");
         }
-
-       
     }
 }
