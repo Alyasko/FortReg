@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FortuneRegistry.Shared.Client.Model.GoogleSheets.Range;
@@ -46,7 +47,7 @@ namespace FortuneRegistry.Shared.Client.Model
         static string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "FortReg";
 
-        public IList<IList<object>> ReadCells(string range)
+        public IList<IList<object>> ReadCells2D(string range)
         {
             SpreadsheetsResource.ValuesResource.GetRequest request = Service.Spreadsheets.Values.Get(_gSheetConfig.GoogleSheetId, range);
 
@@ -55,10 +56,21 @@ namespace FortuneRegistry.Shared.Client.Model
             return response.Values;
         }
 
+        public IList<string> ReadCells1D(string range)
+        {
+            var v = ReadCells2D(range);
+            if (v == null || v.Count == 0)
+            {
+                throw new InvalidOperationException("No cells from Google Sheet returned.");
+            }
+
+            return v.Select(x => x.Select(z => z.ToString()).ElementAt(0)).ToList();
+        }
+
         public GSheetRange GetFirstEmptyCell(string range)
         {
             var r = GSheetRange.Parse(range);
-            var all = ReadCells(range);
+            var all = ReadCells2D(range);
 
             var lastNumber = r.RangeStart.YNumber + all.Count;
 
@@ -87,7 +99,7 @@ namespace FortuneRegistry.Shared.Client.Model
             };
 
             var update = Service.Spreadsheets.Values.Update(valueRange, _gSheetConfig.GoogleSheetId, rangeOffset);
-            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
 
             return update.Execute();
         }

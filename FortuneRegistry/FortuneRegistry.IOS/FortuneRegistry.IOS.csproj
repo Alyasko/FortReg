@@ -132,9 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\.gitignore" />
-    <EmbeddedResource Include="Config\gcreds.json">
+    <None Include="Config\gcreds.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
   </ItemGroup>
@@ -147,7 +147,6 @@
     <Compile Include="Model\Ui\IPickerModel.cs" />
     <Compile Include="Model\Ui\PickerModel.cs" />
     <Compile Include="Model\Ui\StringPickerModelBase.cs" />
-    <Compile Include="PhoneTranslator.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>

@@ -1,40 +1,99 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Content.PM;
+using FortuneRegistry.Android.Model;
+using FortuneRegistry.Shared.Client.Model;
 
 namespace FortuneRegistry.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button _btnIncrease;
-        private TextView _tvCounter;
+        private Spinner _spCategory;
+        private Spinner _spCurrency;
 
-        private int _counter = 0;
+        private Button _btnAdd;
+
+        private EditText _etDescription;
+        private EditText _etAmount;
+
+        private Registry _registry;
+
+        private string _selectedCurrency;
+        private string _selectedCategory;
+
+        private readonly List<string> _categories = new List<string>();
+        private readonly List<string> _currencies = new List<string>();
+
+        public MainActivity()
+        {
+
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            var googleSheetsClient = new GoogleSheetsClient(new AndroidGSheetConfigProvider(Assets));
+            _registry = new Registry(googleSheetsClient);
+
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            _btnIncrease = FindViewById<Button>(Resource.Id.btnIncrease);
-            _tvCounter = FindViewById<TextView>(Resource.Id.tvCounter);
-            
-            //_tvCounter.SetOnClickListener();
+            // Setup.
+
+            // Buttons.
+            _btnAdd = FindViewById<Button>(Resource.Id.btnAdd);
+            _btnAdd.Click += BtnAddOnClick;
+
+            // Edit Texts.
+            _etDescription = FindViewById<EditText>(Resource.Id.editTextDescription);
+            _etAmount = FindViewById<EditText>(Resource.Id.editTextAmount);
+
+            // Spinner Category.
+            _spCategory = FindViewById<Spinner>(Resource.Id.spinnerCategory);
+            _spCategory.ItemSelected += SpCategoryOnItemSelected;
+
+            _categories.AddRange(_registry.QueryAllCategories());
+            var adapterCategories = new ArrayAdapter<string>(this,
+                Android.Resource.Layout.support_simple_spinner_dropdown_item, _categories);
+            adapterCategories.SetDropDownViewResource(Android.Resource.Layout.support_simple_spinner_dropdown_item);
+            _spCategory.Adapter = adapterCategories;
+
+            // Spinner Currency.
+            _spCurrency = FindViewById<Spinner>(Resource.Id.spinnerCurrency);
+            _spCurrency.ItemSelected += SpCurrencyOnItemSelected;
+
+            _currencies.AddRange(_registry.QueryAllCurrencies());
+            var adapterCurrencies = new ArrayAdapter<string>(this,
+                Android.Resource.Layout.support_simple_spinner_dropdown_item, _currencies);
+            adapterCurrencies.SetDropDownViewResource(Android.Resource.Layout.support_simple_spinner_dropdown_item);
+            _spCurrency.Adapter = adapterCurrencies;
         }
 
-        private void TvCounterOnClick(object sender, EventArgs e)
+        private void BtnAddOnClick(object sender, EventArgs e)
         {
-            _counter++;
+            _registry.SaveExpense(_etAmount.Text, _selectedCurrency, _selectedCategory, _etDescription.Text);
 
-            _tvCounter.Text = $"{_counter}";
+            Toast.MakeText(this, "Item added", ToastLength.Long).Show();
+        }
+
+        private void SpCurrencyOnItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var spinner = (Spinner)sender;
+            _selectedCurrency = spinner.GetItemAtPosition(e.Position).ToString();
+        }
+
+        private void SpCategoryOnItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var spinner = (Spinner)sender;
+            _selectedCategory = spinner.GetItemAtPosition(e.Position).ToString();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

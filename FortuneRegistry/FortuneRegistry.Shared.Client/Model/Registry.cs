@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using FortuneRegistry.Shared.Client.Model.GoogleSheets;
@@ -18,7 +19,7 @@ namespace FortuneRegistry.Shared.Client.Model
         {
             var valuesArr = new List<string>
             {
-                DateTime.UtcNow.Date.ToShortDateString(),
+                DateTime.Date.ToString("yyyy-M-dd"),
                 amount,
                 currency,
                 CurrencyRates.Convert("USD", currency).ToString(CultureInfo.InvariantCulture)
@@ -37,6 +38,16 @@ namespace FortuneRegistry.Shared.Client.Model
             valuesArr.Add(category);
 
             _googleSheetsClient.WriteRows(secondPart.ToString(), valuesArr);
+        }
+
+        public IEnumerable<string> QueryAllCategories()
+        {
+            return _googleSheetsClient.ReadCells1D("Summary!B28:B50");
+        }
+
+        public IEnumerable<string> QueryAllCurrencies()
+        {
+            return _googleSheetsClient.ReadCells1D("Summary!N9:N12");
         }
     }
 }

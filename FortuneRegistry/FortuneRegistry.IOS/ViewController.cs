@@ -117,26 +117,15 @@ namespace FortuneRegistry.IOS
             LblDescription.Text = TbDescription.Text;
         }
 
-        private string[][] ReadCellRange(string range)
-        {
-            var v = _googleSheetsClient.ReadCells(range);
-            if (v == null || v.Count == 0)
-            {
-                throw new InvalidOperationException("No cells from datasheet returned");
-            }
-
-            return v.Select(x => x.Select(z => z.ToString()).ToArray()).ToArray();
-        }
-
         private void FillCategories()
         {
             _categoryPickerModel.Clear();
 
-            var cats = ReadCellRange("Summary!B28:B50");
+            var cats = _registry.QueryAllCategories();
 
             foreach (var i in cats)
             {
-                _categoryPickerModel.Add(i[0].ToString());
+                _categoryPickerModel.Add(i);
             }
 
             PickerCategory.Model = _categoryPickerModel;
@@ -147,11 +136,11 @@ namespace FortuneRegistry.IOS
         {
             _currencyPickerModel.Clear();
 
-            var cuurs = ReadCellRange("Summary!N9:N12");
+            var curs = _registry.QueryAllCurrencies();
 
-            foreach (var i in cuurs)
+            foreach (var i in curs)
             {
-                _currencyPickerModel.Add(i[0].ToString());
+                _currencyPickerModel.Add(i.ToString());
             }
 
             PickerCurrency.Model = _currencyPickerModel;

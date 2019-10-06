@@ -1,13 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btnIncrease"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <LinearLayout
+android:orientation="vertical"
         android:layout_width="match_parent"
-        android:text="Click me!"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvCounter"
+        android:layout_height="wrap_content">
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category"/>
+      <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCategory"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"/>
+      <EditText
+          android:id="@+id/editTextDescription"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amount"/>
+      <EditText
+        android:id="@+id/editTextAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Currency"/>
+      <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCurrency"/>
+
+      <Button
+          android:text="Add"
+          android:id="@+id/btnAdd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+    </LinearLayout>
 </RelativeLayout>
