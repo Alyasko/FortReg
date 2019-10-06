@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace FortuneRegistry.IOS.Model.Range
+namespace FortuneRegistry.Shared.Client.Model.GoogleSheets.Range
 {
     public class GSheetRange
     {
@@ -21,8 +21,8 @@ namespace FortuneRegistry.IOS.Model.Range
 
         public static GSheetRange Parse(string range)
         {
-            var hasTableName = range.Contains("!", StringComparison.OrdinalIgnoreCase);
-            var hasRange = range.Contains(":", StringComparison.OrdinalIgnoreCase);
+            var hasTableName = range.Contains("!");
+            var hasRange = range.Contains(":");
 
             var parts = range.Split(new string[] {"!", ":"}, StringSplitOptions.RemoveEmptyEntries);
 

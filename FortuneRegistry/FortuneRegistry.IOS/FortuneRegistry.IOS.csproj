@@ -143,20 +143,21 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Model\BaseController.cs" />
-    <Compile Include="Model\CurrencyRates.cs" />
-    <Compile Include="Model\GoogleSheetsClient.cs" />
-    <Compile Include="Model\Range\GSheetCell.cs" />
-    <Compile Include="Model\Range\GSheetRange.cs" />
-    <Compile Include="Model\Registry.cs" />
+    <Compile Include="Model\AppleGSheetConfigProvider.cs" />
     <Compile Include="Model\Ui\IPickerModel.cs" />
     <Compile Include="Model\Ui\PickerModel.cs" />
     <Compile Include="Model\Ui\StringPickerModelBase.cs" />
     <Compile Include="PhoneTranslator.cs" />
-    <Compile Include="Utils\UiHelper.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FortuneRegistry.Shared.Client\FortuneRegistry.Shared.Client.csproj">
+      <Project>{465CE913-E2C5-4E97-AF88-B0933B7419D6}</Project>
+      <Name>FortuneRegistry.Shared.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

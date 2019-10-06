@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using FortuneRegistry.IOS.Model.Range;
-using Foundation;
-using UIKit;
+using FortuneRegistry.Shared.Client.Model.GoogleSheets;
+using FortuneRegistry.Shared.Client.Model.GoogleSheets.Range;
 
-namespace FortuneRegistry.IOS.Model
+namespace FortuneRegistry.Shared.Client.Model
 {
     public class Registry
     {

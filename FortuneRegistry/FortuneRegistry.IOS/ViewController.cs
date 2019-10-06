@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Threading;
 using FortuneRegistry.IOS.Model;
 using FortuneRegistry.IOS.Model.Ui;
+using FortuneRegistry.Shared.Client.Model;
+using FortuneRegistry.Shared.Client.Model.GoogleSheets;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -21,7 +23,7 @@ namespace FortuneRegistry.IOS
         private readonly StringPickerModelBase _currencyPickerModel = new StringPickerModelBase();
         private readonly StringPickerModelBase _categoryPickerModel = new StringPickerModelBase();
 
-        private readonly GoogleSheetsClient _googleSheetsClient = new GoogleSheetsClient();
+        private readonly GoogleSheetsClient _googleSheetsClient = new GoogleSheetsClient(new AppleGSheetConfigProvider());
         private readonly Registry _registry;
 
         public ViewController(IntPtr handle) : base(handle)

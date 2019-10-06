@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using FortuneRegistry.IOS.Config;
-using FortuneRegistry.IOS.Model.Range;
-using Foundation;
+using FortuneRegistry.Shared.Client.Model.GoogleSheets.Range;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
-using UIKit;
 
-namespace FortuneRegistry.IOS.Model
+namespace FortuneRegistry.Shared.Client.Model
 {
     public class GoogleSheetsClient
     {
         private SheetsService _service;
         private SheetsService Service => _service ?? (_service = CreateService());
 
-        public GoogleSheetsClient()
+        private readonly IGSheetConfigProvider _gSheetConfig;
+
+        public GoogleSheetsClient(IGSheetConfigProvider gSheetConfig)
         {
-            
+            _gSheetConfig = gSheetConfig;
         }
 
         private SheetsService CreateService()
         {
             UserCredential credential;
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ViewController)).Assembly;
 
             GoogleCredential cr;
-            using (var rStream = assembly.GetManifestResourceStream("FortuneRegistry.IOS.Config.gcreds.json"))
+            using (var rStream = _gSheetConfig.ReadConfig())
             {
                 cr = GoogleCredential.FromStream(rStream).CreateScoped(Scopes);
             }
@@ -52,7 +48,7 @@ namespace FortuneRegistry.IOS.Model
 
         public IList<IList<object>> ReadCells(string range)
         {
-            SpreadsheetsResource.ValuesResource.GetRequest request = Service.Spreadsheets.Values.Get(GSheets.SheetId, range);
+            SpreadsheetsResource.ValuesResource.GetRequest request = Service.Spreadsheets.Values.Get(_gSheetConfig.GoogleSheetId, range);
 
             var response = request.Execute();
 
@@ -90,15 +86,10 @@ namespace FortuneRegistry.IOS.Model
                 }
             };
 
-            var update = Service.Spreadsheets.Values.Update(valueRange, GSheets.SheetId, rangeOffset);
+            var update = Service.Spreadsheets.Values.Update(valueRange, _gSheetConfig.GoogleSheetId, rangeOffset);
             update.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
             return update.Execute();
-        }
-
-        public void Test()
-        {
-            ReadCells("Transactions!B1:B100");
         }
     }
 }
