@@ -19,7 +19,7 @@ namespace FortuneRegistry.Shared.Client.Model
         {
             var valuesArr = new List<string>
             {
-                DateTime.Date.ToString("yyyy-M-dd"),
+                DateTime.Now.Date.ToString("yyyy-M-dd"),
                 amount,
                 currency,
                 CurrencyRates.Convert("USD", currency).ToString(CultureInfo.InvariantCulture)

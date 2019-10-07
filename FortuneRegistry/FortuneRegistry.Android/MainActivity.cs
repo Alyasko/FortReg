@@ -6,6 +6,7 @@ using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Content.PM;
+using Android.Text;
 using FortuneRegistry.Android.Model;
 using FortuneRegistry.Shared.Client.Model;
 
@@ -30,11 +31,6 @@ namespace FortuneRegistry.Android
         private readonly List<string> _categories = new List<string>();
         private readonly List<string> _currencies = new List<string>();
 
-        public MainActivity()
-        {
-
-        }
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             var googleSheetsClient = new GoogleSheetsClient(new AndroidGSheetConfigProvider(Assets));
@@ -54,7 +50,10 @@ namespace FortuneRegistry.Android
 
             // Edit Texts.
             _etDescription = FindViewById<EditText>(Resource.Id.editTextDescription);
+            _etDescription.SetRawInputType(InputTypes.ClassText | InputTypes.TextFlagCapSentences);
+
             _etAmount = FindViewById<EditText>(Resource.Id.editTextAmount);
+            _etAmount.SetRawInputType(InputTypes.ClassNumber);
 
             // Spinner Category.
             _spCategory = FindViewById<Spinner>(Resource.Id.spinnerCategory);
@@ -79,9 +78,15 @@ namespace FortuneRegistry.Android
 
         private void BtnAddOnClick(object sender, EventArgs e)
         {
+            if(!ValidateInput())
+                return;
+
             _registry.SaveExpense(_etAmount.Text, _selectedCurrency, _selectedCategory, _etDescription.Text);
 
             Toast.MakeText(this, "Item added", ToastLength.Long).Show();
+
+            _etAmount.Text = "";
+            _etDescription.Text = "";
         }
 
         private void SpCurrencyOnItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -101,6 +106,22 @@ namespace FortuneRegistry.Android
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(_etAmount.Text))
+            {
+                Toast.MakeText(this, "Please enter transaction amount.", ToastLength.Long).Show();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(_etDescription.Text))
+            {
+                Toast.MakeText(this, "Please enter transaction description.", ToastLength.Long).Show();
+                return false;
+            }
+
+            return true;
         }
     }
 }
