@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Text;
 using FortuneRegistry.IOS.Config;
-using FortuneRegistry.Shared.Client;
-using Foundation;
-using UIKit;
+using FortuneRegistry.Shared.Mobile;
 
 namespace FortuneRegistry.IOS.Model
 {

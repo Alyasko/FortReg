@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FortuneRegistry.Shared.Client.Model.GoogleSheets
+namespace FortuneRegistry.Shared.Mobile.Model.GoogleSheets
 {
     public class CurrencyRates
     {

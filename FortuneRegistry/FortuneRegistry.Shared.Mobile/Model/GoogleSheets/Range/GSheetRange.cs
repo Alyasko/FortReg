@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace FortuneRegistry.Shared.Client.Model.GoogleSheets.Range
+namespace FortuneRegistry.Shared.Mobile.Model.GoogleSheets.Range
 {
     public class GSheetRange
     {

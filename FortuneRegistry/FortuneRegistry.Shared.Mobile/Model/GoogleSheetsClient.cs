@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using FortuneRegistry.Shared.Client.Model.GoogleSheets.Range;
+using FortuneRegistry.Shared.Mobile.Model.GoogleSheets.Range;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 
-namespace FortuneRegistry.Shared.Client.Model
+namespace FortuneRegistry.Shared.Mobile.Model
 {
     public class GoogleSheetsClient
     {

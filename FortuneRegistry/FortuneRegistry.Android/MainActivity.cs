@@ -8,7 +8,7 @@ using Android.Widget;
 using Android.Content.PM;
 using Android.Text;
 using FortuneRegistry.Android.Model;
-using FortuneRegistry.Shared.Client.Model;
+using FortuneRegistry.Shared.Mobile.Model;
 
 namespace FortuneRegistry.Android
 {

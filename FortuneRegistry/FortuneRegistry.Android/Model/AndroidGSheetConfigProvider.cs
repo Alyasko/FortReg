@@ -1,8 +1,7 @@
 ﻿using System.IO;
-using System.Reflection;
 using Android.Content.Res;
 using FortuneRegistry.Android.Config;
-using FortuneRegistry.Shared.Client;
+using FortuneRegistry.Shared.Mobile;
 
 namespace FortuneRegistry.Android.Model
 {
