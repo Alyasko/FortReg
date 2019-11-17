@@ -3,7 +3,8 @@
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
     <NUllable>enable</NUllable>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

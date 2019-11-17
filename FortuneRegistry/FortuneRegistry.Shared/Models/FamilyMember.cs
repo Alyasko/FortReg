@@ -1,4 +1,6 @@
-﻿namespace FortuneRegistry.Shared.Models
+﻿using System;
+
+namespace FortuneRegistry.Shared.Models
 {
     public class FamilyMember : IBaseDbModel
     {
@@ -12,7 +14,7 @@
             Surname = surname;
         }
 
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string Name { get; set; } = String.Empty;
+        public string Surname { get; set; } = String.Empty;
     }
 }

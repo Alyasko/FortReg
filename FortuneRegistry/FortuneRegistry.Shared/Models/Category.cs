@@ -1,4 +1,8 @@
-﻿namespace FortuneRegistry.Shared.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FortuneRegistry.Shared.Models
 {
     public class Category : IBaseDbModel
     {
@@ -11,8 +15,8 @@
             Name = name;
         }
 
-        public string Name { get; set; }
-        public Category[] SubCategories { get; set; }
+        public string Name { get; set; } = String.Empty;
+        public IEnumerable<Category> SubCategories { get; set; } = Enumerable.Empty<Category>();
         public int Id { get; set; }
     }
 }

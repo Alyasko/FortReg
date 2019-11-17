@@ -6,11 +6,11 @@ namespace FortuneRegistry.Shared.Models.Transactions
     {
         public DateTime? Date { get; set; }
         public decimal Amount { get; set; }
-        public Currency Currency { get; set; }
-        public string Description { get; set; }
-        public Category Category { get; set; }
-        public FamilyMember TargetMember { get; set; }
-        public FamilyMember Owner { get; set; }
+        public Currency Currency { get; set; } = new Currency();
+        public string Description { get; set; } = String.Empty;
+        public Category Category { get; set; } = new Category();
+        public FamilyMember TargetMember { get; set; } = new FamilyMember();
+        public FamilyMember Owner { get; set; } = new FamilyMember();
         public TransactionType Type { get; set; }
         public int Id { get; set; }
     }

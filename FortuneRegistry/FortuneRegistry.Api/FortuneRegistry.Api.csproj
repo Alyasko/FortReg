@@ -4,6 +4,7 @@
     <LangVersion>8.0</LangVersion>
     <NUllable>enable</NUllable>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace FortuneRegistry.Shared.Models
             Currency = currency;
         }
 
-        public Currency Currency { get; set; }
+        public Currency Currency { get; set; } = new Currency();
         public decimal Value { get; set; }
     }
 }

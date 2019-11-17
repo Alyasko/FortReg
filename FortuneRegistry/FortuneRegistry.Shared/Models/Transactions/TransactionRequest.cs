@@ -10,21 +10,21 @@ namespace FortuneRegistry.Shared.Models.Transactions
         public decimal Amount { get; set; }
 
         [JsonIgnore]
-        public Currency Currency { get; set; }
+        public Currency Currency { get; set; } = new Currency();
         public int CurrencyId { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = String.Empty;
 
         [JsonIgnore]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = new Category();
         public int CategoryId { get; set; }
 
         [JsonIgnore]
-        public FamilyMember TargetMember { get; set; }
+        public FamilyMember TargetMember { get; set; } = new FamilyMember();
         public int TargetMembeId { get; set; }
 
         [JsonIgnore]
-        public FamilyMember Owner { get; set; }
+        public FamilyMember Owner { get; set; } = new FamilyMember();
         public int OwnerId { get; set; }
 
         public TransactionType Type { get; set; }

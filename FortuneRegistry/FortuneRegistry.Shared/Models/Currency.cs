@@ -16,6 +16,6 @@ namespace FortuneRegistry.Shared.Models
             Code = code;
         }
 
-        public string Code { get; set; }
+        public string Code { get; set; } = String.Empty;
     }
 }
