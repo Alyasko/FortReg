@@ -158,6 +158,10 @@
       <Project>{465CE913-E2C5-4E97-AF88-B0933B7419D6}</Project>
       <Name>FortuneRegistry.Shared.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FortuneRegistry.Shared.Mobile\FortuneRegistry.Shared.Mobile.csproj">
+      <Project>{93773995-A197-4C92-8420-4B82A6844759}</Project>
+      <Name>FortuneRegistry.Shared.Mobile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

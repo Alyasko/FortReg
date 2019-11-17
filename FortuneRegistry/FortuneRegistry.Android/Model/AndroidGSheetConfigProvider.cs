@@ -16,7 +16,9 @@ namespace FortuneRegistry.Android.Model
 
         public Stream ReadConfig()
         {
-            return _assets.Open(Path.Combine("Config", "gcreds.json"));
+            var asset = _assets.Open(Path.Combine("Config", "gcreds.json"));
+            var all = _assets.List("Config");
+            return asset;
         }
 
         public string GoogleSheetId => GSheets.SheetId;

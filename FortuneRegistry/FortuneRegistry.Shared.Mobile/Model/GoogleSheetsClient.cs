@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FortuneRegistry.Shared.Mobile.Model.GoogleSheets.Range;
 using Google.Apis.Auth.OAuth2;
@@ -11,14 +12,15 @@ namespace FortuneRegistry.Shared.Mobile.Model
 {
     public class GoogleSheetsClient
     {
-        private SheetsService _service;
-        private SheetsService Service => _service ?? (_service = CreateService());
+        private SheetsService Service { get; }
 
         private readonly IGSheetConfigProvider _gSheetConfig;
 
         public GoogleSheetsClient(IGSheetConfigProvider gSheetConfig)
         {
             _gSheetConfig = gSheetConfig;
+
+            Service = CreateService();
         }
 
         private SheetsService CreateService()
@@ -28,6 +30,8 @@ namespace FortuneRegistry.Shared.Mobile.Model
             GoogleCredential cr;
             using (var rStream = _gSheetConfig.ReadConfig())
             {
+                var reader = new StreamReader(rStream);
+                var json = reader.ReadToEnd();
                 cr = GoogleCredential.FromStream(rStream).CreateScoped(Scopes);
             }
 
