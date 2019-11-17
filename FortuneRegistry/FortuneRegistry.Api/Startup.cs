@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace FortuneRegistry.Api
 {
@@ -30,6 +24,16 @@ namespace FortuneRegistry.Api
         {
             services.AddControllers();
 
+            SetupContainer(services);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FortReg", Version = "v1" });
+            });
+        }
+
+        private void SetupContainer(IServiceCollection services)
+        {
             var configuration = new MapperConfiguration(cfg =>
             {
                 //cfg.CreateMap<Foo, FooDto>();
@@ -37,24 +41,40 @@ namespace FortuneRegistry.Api
             });
 
             configuration.AssertConfigurationIsValid();
-            var mapper = configuration.CreateMapper();
 
+            var mapper = configuration.CreateMapper();
             services.AddSingleton<IMapper>(mapper);
 
-            services.AddScoped<TransactionsService>();
-            services.AddScoped<TransactionsRepository>();
+            services.AddSingleton<TransactionsService>();
+            services.AddSingleton<TransactionsRepository>();
 
-            services.AddScoped<FamilyMembersService>();
-            services.AddScoped<FamilyMembersRepository>();
+            services.AddSingleton<FamilyMembersService>();
+            services.AddSingleton<FamilyMembersRepository>();
 
-            services.AddScoped<CategoriesService>();
-            services.AddScoped<CategoriesRepository>();
+            services.AddSingleton<CategoriesService>();
+            services.AddSingleton<CategoriesRepository>();
 
-            services.AddScoped<SummaryService>();
-            services.AddScoped<PlansRepository>();
-            services.AddScoped<DatabaseService>();
+            services.AddSingleton<SummaryService>();
+            services.AddSingleton<PlansRepository>();
+            services.AddSingleton<DatabaseService>();
 
-            services.AddScoped<CurrenciesRepository>();
+            services.AddSingleton<CurrenciesRepository>();
+            services.AddSingleton<IMapper>(mapper);
+
+            services.AddSingleton<TransactionsService>();
+            services.AddSingleton<TransactionsRepository>();
+
+            services.AddSingleton<FamilyMembersService>();
+            services.AddSingleton<FamilyMembersRepository>();
+
+            services.AddSingleton<CategoriesService>();
+            services.AddSingleton<CategoriesRepository>();
+
+            services.AddSingleton<SummaryService>();
+            services.AddSingleton<PlansRepository>();
+            services.AddSingleton<DatabaseService>();
+
+            services.AddSingleton<CurrenciesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,14 +86,17 @@ namespace FortuneRegistry.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
