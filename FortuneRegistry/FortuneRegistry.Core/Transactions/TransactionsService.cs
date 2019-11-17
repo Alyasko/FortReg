@@ -15,7 +15,7 @@ namespace FortuneRegistry.Core.Transactions
                 transaction.Date = DateTime.UtcNow;
 
             using var db = new TransactionsRepository();
-            var bson = db.Add(transaction);
+            //var bson = db.Add(transaction);
         }
 
         public IEnumerable<Transaction> GetAll()
