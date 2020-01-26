@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FortuneRegistry.Persistence;
 using FortuneRegistry.Shared.Models;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FortuneRegistry.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class FamilyMembersController : ControllerBase
     {
@@ -19,10 +20,10 @@ namespace FortuneRegistry.Api.Controllers
             _familyMembersRepository = familyMembersRepository;
         }
 
-        [HttpGet]
-        public IEnumerable<FamilyMember> GetAll()
+        [HttpGet("query")]
+        public async Task<IEnumerable<FamilyMember>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return _familyMembersRepository.GetAll();
+            return await _familyMembersRepository.QueryAllAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FortuneRegistry.Shared.Models.Transactions;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FortuneRegistry.Shared.Models.Transactions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FortuneRegistry.Persistence
 {
@@ -10,24 +10,24 @@ namespace FortuneRegistry.Persistence
     {
         protected override string CollectionName { get; set; } = "transactions";
 
-        public IEnumerable<Transaction> GetIncomes()
+        public async Task<IEnumerable<Transaction>> GetIncomesAsync(CancellationToken cancellationToken = default)
         {
-            return Collection.Find(x => x.Type == TransactionType.Income);
+            return await QueryAsync(x => x.Type == TransactionType.Income, cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Transaction> GetIncomes(DateTime dateMonth)
+        public async Task<IEnumerable<Transaction>> GetIncomesAsync(DateTime dateMonth, CancellationToken cancellationToken = default)
         {
-            return Collection.Find(x => x.Date != null && (x.Type == TransactionType.Income && x.Date.Value.Year == dateMonth.Year && x.Date.Value.Month == dateMonth.Month));
+            return await QueryAsync(x => x.Date != null && (x.Type == TransactionType.Income && x.Date.Value.Year == dateMonth.Year && x.Date.Value.Month == dateMonth.Month), cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Transaction> GetExpenses()
+        public async Task<IEnumerable<Transaction>> GetExpensesAsync(CancellationToken cancellationToken = default)
         {
-            return Collection.Find(x => x.Type == TransactionType.Expense);
+            return await QueryAsync(x => x.Type == TransactionType.Expense, cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Transaction> GetExpenses(DateTime dateMonth)
+        public async Task<IEnumerable<Transaction>> GetExpensesAsync(DateTime dateMonth, CancellationToken cancellationToken = default)
         {
-            return Collection.Find(x => x.Date != null && (x.Type == TransactionType.Expense && dateMonth.Year == x.Date.Value.Year && dateMonth.Month == x.Date.Value.Month));
+            return await QueryAsync(x => x.Date != null && (x.Type == TransactionType.Expense && dateMonth.Year == x.Date.Value.Year && dateMonth.Month == x.Date.Value.Month), cancellationToken).ConfigureAwait(false);
         }
     }
 }

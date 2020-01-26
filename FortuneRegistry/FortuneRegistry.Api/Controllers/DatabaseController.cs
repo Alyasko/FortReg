@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FortuneRegistry.Core.Transactions;
 using Microsoft.AspNetCore.Mvc;
@@ -21,22 +22,12 @@ namespace FortuneRegistry.Api.Controllers
         }
 
         [HttpPost("seed")]
-        public ActionResult Seed()
+        public async Task<ActionResult> SeedAsync(CancellationToken cancellationToken = default)
         {
             // TODO: add auth.
-            _serviceDb.SeedRandom();
+            await _serviceDb.SeedRandom();
 
             return Accepted();
-        }
-
-        [HttpPost("delete")]
-        public ActionResult Delete()
-        {
-            // TODO: add auth.
-            if (_serviceDb.DeleteDatabase())
-                return Accepted();
-
-            return Conflict();
         }
     }
 }

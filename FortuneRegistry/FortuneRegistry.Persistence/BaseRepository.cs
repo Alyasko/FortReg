@@ -1,66 +1,45 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using FortuneRegistry.Shared.Models;
-using LiteDB;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FortuneRegistry.Persistence
 {
-    public abstract class BaseRepository<T> : IDisposable where T: IBaseDbModel
+    public abstract class BaseRepository<T>
     {
-        public const string DatabaseFileName = "fortreg.db";
-
-        protected LiteDatabase Database { get; private set; }
+        protected MongoClient DbClient { get; private set; }
+        protected IMongoDatabase Database { get; private set; }
 
         protected BaseRepository()
         {
-            Database = new LiteDatabase(DatabaseFileName);
+            DbClient = new MongoClient("mongodb://localhost:27017");
+            Database = DbClient.GetDatabase("fortreg");
         }
 
         protected abstract string CollectionName { get; set; }
-        public LiteCollection<T> Collection => Database.GetCollection<T>(CollectionName);
 
-        public BsonValue Add(T item)
+        public IMongoCollection<T> Collection => Database.GetCollection<T>(CollectionName);
+
+        public async Task SaveAsync(T item, CancellationToken cancellationToken = default)
         {
-            //if (item.Id != 0)
-            //    item.Id = 0;
-
-            return Collection.Insert(item);
+            await Collection.InsertOneAsync(item, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        public BsonValue Add(IEnumerable<T> items)
+        public async Task SaveAsync(IEnumerable<T> items, CancellationToken cancellationToken = default)
         {
-            return Collection.Insert(items);
+            await Collection.InsertManyAsync(items, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
         {
-            return Collection.FindAll();
+            return await Collection.Find(expression).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public bool DeleteDatabaseFile()
+        public async Task<IEnumerable<T>> QueryAllAsync(CancellationToken cancellationToken = default)
         {
-            try
-            {
-                if (File.Exists(DatabaseFileName))
-                {
-                    File.Delete(DatabaseFileName);
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public void Dispose()
-        {
-            Database.Dispose();
+            return await Collection.Find(FilterDefinition<T>.Empty).ToListAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }
