@@ -14,7 +14,7 @@ namespace FortuneRegistry.Persistence
 
         protected BaseRepository()
         {
-            DbClient = new MongoClient("mongodb://localhost:27017");
+            DbClient = new MongoClient("mongodb://localhost:27117");
             Database = DbClient.GetDatabase("fortreg");
         }
 

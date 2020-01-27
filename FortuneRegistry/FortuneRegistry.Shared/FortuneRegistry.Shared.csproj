@@ -15,4 +15,10 @@
     <Folder Include="Models\ClientApp\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\..\..\Users\Alexander\.nuget\packages\mongodb.bson\2.10.1\lib\netstandard1.5\MongoDB.Bson.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

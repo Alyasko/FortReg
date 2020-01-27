@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
 
 namespace FortuneRegistry.Api
 {
@@ -29,6 +31,8 @@ namespace FortuneRegistry.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FortReg", Version = "v1" });
+                c.MapType<ObjectId>(() => new OpenApiSchema { Type = "string", Description = "12 bit hexadecimal ObjectId value", Format = "objectId", Example = new OpenApiString("000000000000000000000000") });
+                c.MapType<ObjectId?>(() => new OpenApiSchema { Type = "string", Description = "12 bit hexadecimal ObjectId value", Format = "objectId", Example = new OpenApiString("000000000000000000000000") });
             });
         }
 

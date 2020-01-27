@@ -2,7 +2,7 @@
 
 namespace FortuneRegistry.Shared.Models
 {
-    public class FamilyMember : IBaseDbModel
+    public class FamilyMember : BaseDbModel
     {
         public FamilyMember()
         {

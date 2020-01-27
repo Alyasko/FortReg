@@ -5,7 +5,7 @@ using FortuneRegistry.Shared.Models.Transactions;
 
 namespace FortuneRegistry.Shared.Models.Summary
 {
-    public class Plan : IBaseDbModel
+    public class Plan : BaseDbModel
     {
         public Plan()
         {

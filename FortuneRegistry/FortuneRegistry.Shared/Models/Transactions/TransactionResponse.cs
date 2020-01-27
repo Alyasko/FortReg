@@ -2,7 +2,7 @@
 
 namespace FortuneRegistry.Shared.Models.Transactions
 {
-    public class TransactionResponse : ITransaction
+    public class TransactionResponse : BaseDbModel, ITransaction
     {
         public DateTime? Date { get; set; }
         public decimal Amount { get; set; }
@@ -12,6 +12,5 @@ namespace FortuneRegistry.Shared.Models.Transactions
         public FamilyMember TargetMember { get; set; } = new FamilyMember();
         public FamilyMember Owner { get; set; } = new FamilyMember();
         public TransactionType Type { get; set; }
-        public int Id { get; set; }
     }
 }
