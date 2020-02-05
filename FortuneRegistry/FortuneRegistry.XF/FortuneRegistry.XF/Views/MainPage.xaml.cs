@@ -14,32 +14,44 @@ namespace FortuneRegistry.XF.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
-        Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        private readonly Dictionary<MenuItemType, NavigationPage> _menuPages = new Dictionary<MenuItemType, NavigationPage>();
+
         public MainPage()
         {
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            _menuPages.Add(MenuItemType.Dashboard, (NavigationPage)Detail);
         }
 
-        public async Task NavigateFromMenu(int id)
+        public async Task NavigateFromMenu(MenuItemType menuItem)
         {
-            if (!MenuPages.ContainsKey(id))
+            if (!_menuPages.ContainsKey(menuItem))
             {
-                switch (id)
+                switch (menuItem)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                    case MenuItemType.Dashboard:
+                        _menuPages.Add(MenuItemType.Dashboard, new NavigationPage(new DashboardPage()));
                         break;
-                    case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    case MenuItemType.Income:
+                        _menuPages.Add(MenuItemType.Income, new NavigationPage(new IncomePage()));
                         break;
+                    case MenuItemType.Expenses:
+                        _menuPages.Add(MenuItemType.Expenses, new NavigationPage(new ExpensesPage()));
+                        break;
+                    case MenuItemType.Settings:
+                        _menuPages.Add(MenuItemType.Settings, new NavigationPage(new SettingsPage()));
+                        break;
+                    case MenuItemType.About:
+                        _menuPages.Add(MenuItemType.About, new NavigationPage(new AboutPage()));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(menuItem), menuItem, null);
                 }
             }
 
-            var newPage = MenuPages[id];
+            var newPage = _menuPages[menuItem];
 
             if (newPage != null && Detail != newPage)
             {

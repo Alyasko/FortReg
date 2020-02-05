@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
+             mc:Ignorable="d"
+             x:Class="FortuneRegistry.XF.Views.ExpensesPage">
+    <ContentPage.Content>
+        <Grid Margin="0, 0, 0, 40">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="LvExpenses" RowHeight="60">
+                <d:ListView.ItemsSource>
+                    <x:Array Type="{x:Type models:ExpenseListItem}">
+                        <models:ExpenseListItem Title="Flowers" Date="2017.04.05" Price="12.659"/>
+                        <models:ExpenseListItem Title="Taxi" Date="2017.04.05" Price="200"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="150"/>
+                    </x:Array>
+                </d:ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="16, 5, 10, 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label FontSize="20" TextColor="Maroon" Grid.Row="0" d:Text="{Binding Price}"></Label>
+                                <Label TextColor="Gray" Grid.Row="0" Grid.Column="1" d:Text="{Binding Date}"></Label>
+                                <Label Grid.Row="1" d:Text="{Binding Title}"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="1" x:Name="BtnAddExpense" Text="Add"></Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -12,29 +12,33 @@ namespace FortuneRegistry.XF.Views
     [DesignTimeVisible(false)]
     public partial class MenuPage : ContentPage
     {
-        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
-        List<HomeMenuItem> menuItems;
+        private MainPage RootPage => Application.Current.MainPage as MainPage;
+
+        private readonly List<HomeMenuItem> _menuItems = new List<HomeMenuItem>
+        {
+            new HomeMenuItem {Id = MenuItemType.Dashboard, Title="Dashboard" },
+            new HomeMenuItem {Id = MenuItemType.Income, Title="Income" },
+            new HomeMenuItem {Id = MenuItemType.Expenses, Title="Expenses" },
+            new HomeMenuItem {Id = MenuItemType.Settings, Title="Settings" },
+            new HomeMenuItem {Id = MenuItemType.About, Title="About" }
+        };
+
         public MenuPage()
         {
             InitializeComponent();
 
-            menuItems = new List<HomeMenuItem>
-            {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" }
-            };
+            LvMenuItems.ItemsSource = _menuItems;
 
-            ListViewMenu.ItemsSource = menuItems;
+            LvMenuItems.SelectedItem = _menuItems[0];
+        }
 
-            ListViewMenu.SelectedItem = menuItems[0];
-            ListViewMenu.ItemSelected += async (sender, e) =>
-            {
-                if (e.SelectedItem == null)
-                    return;
+        private async void LvMenuItems_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null || RootPage == null)
+                return;
 
-                var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                await RootPage.NavigateFromMenu(id);
-            };
+            var id = ((HomeMenuItem)e.SelectedItem).Id;
+            await RootPage.NavigateFromMenu(id);
         }
     }
 }
