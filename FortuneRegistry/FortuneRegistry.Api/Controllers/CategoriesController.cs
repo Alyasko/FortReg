@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FortuneRegistry.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class CategoriesController : Controller
     {
         private readonly CategoriesService _categoriesService;
@@ -21,12 +21,10 @@ namespace FortuneRegistry.Api.Controllers
             _categoriesService = categoriesService;
         }
 
-        [HttpGet()]
-        public IEnumerable<Category> GetAll()
+        [HttpGet("query")]
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            return _categoriesService.GetAll();
+            return await _categoriesService.GetAllAsync().ConfigureAwait(false);
         }
-        
-        // TODO: add category adding and deletion.
     }
 }

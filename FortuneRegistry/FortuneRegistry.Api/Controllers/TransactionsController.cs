@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using AutoMapper;
 using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Shared.Models;
@@ -8,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FortuneRegistry.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
@@ -22,29 +24,29 @@ namespace FortuneRegistry.Api.Controllers
         }
 
         [HttpGet("incomes")]
-        public IEnumerable<TransactionResponse> GetIncomes(int offset = 0, int limit = 25)
+        public async Task<IEnumerable<TransactionResponse>> GetIncomesAsync(int offset = 0, int limit = 25, CancellationToken cancellationToken = default)
         {
-            return _transactionsService.GetIncomes().Select(x => _mapper.Map<TransactionResponse>(x));
+            return (await _transactionsService.GetIncomesAsync(cancellationToken).ConfigureAwait(false)).Select(x => _mapper.Map<TransactionResponse>(x));
         }
 
         [HttpGet("expenses")]
-        public IEnumerable<TransactionResponse> GetExpenses(int offset = 0, int limit = 25)
+        public async Task<IEnumerable<TransactionResponse>> GetExpensesAsync(int offset = 0, int limit = 25, CancellationToken cancellationToken = default)
         {
-            return _transactionsService.GetExpenses().Select(x => _mapper.Map<TransactionResponse>(x));
+            return (await _transactionsService.GetExpensesAsync(cancellationToken).ConfigureAwait(false)).Select(x => _mapper.Map<TransactionResponse>(x));
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(TransactionRequest transaction)
+        public async Task<ActionResult> AddTransaction(TransactionRequest transaction, CancellationToken cancellationToken = default)
         {
-            _transactionsService.Add(transaction);
+            await _transactionsService.AddAsync(transaction, cancellationToken).ConfigureAwait(false);
 
             return CreatedAtAction(nameof(AddTransaction), transaction);
         }
 
         [HttpGet("currencies")]
-        public IEnumerable<Currency> GetCurrencies()
+        public async Task<IEnumerable<Currency>> GetCurrencies(CancellationToken cancellationToken = default)
         {
-            return _transactionsService.GetCurrencies();
+            return await _transactionsService.GetCurrenciesAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

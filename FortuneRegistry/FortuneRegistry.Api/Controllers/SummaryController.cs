@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FortuneRegistry.Core.Transactions;
 using FortuneRegistry.Shared.Models.Summary;
@@ -22,23 +23,23 @@ namespace FortuneRegistry.Api.Controllers
         }
 
         [HttpPost()]
-        public ActionResult Add(Plan plan)
+        public async Task<ActionResult> AddAsync(Plan plan, CancellationToken cancellationToken = default)
         {
-            _summaryService.AddPlan(plan);
+            await _summaryService.AddPlanAsync(plan, cancellationToken).ConfigureAwait(false);
 
-            return Created(nameof(Add), plan);
+            return Created(nameof(AddAsync), plan);
         }
 
         [HttpGet("expenses")]
-        public IEnumerable<CategorySummary> GetExpenses(DateTime? dateMonth)
+        public async Task<IEnumerable<CategorySummary>> GetExpensesAsync(DateTime? dateMonth, CancellationToken cancellationToken = default)
         {
-            return _summaryService.CalculateMonthlySummary(dateMonth).AllExpenses;
+            return (await _summaryService.CalculateMonthlySummaryAsync(dateMonth, cancellationToken).ConfigureAwait(false)).AllExpenses;
         }
 
         [HttpGet("incomes")]
-        public IEnumerable<CategorySummary> GetIncomes(DateTime? dateMonth)
+        public async Task<IEnumerable<CategorySummary>> GetIncomesAsync(DateTime? dateMonth, CancellationToken cancellationToken = default)
         {
-            return _summaryService.CalculateMonthlySummary(dateMonth).AllIncomes;
+            return (await _summaryService.CalculateMonthlySummaryAsync(dateMonth, cancellationToken)).AllIncomes;
         }
     }
 }

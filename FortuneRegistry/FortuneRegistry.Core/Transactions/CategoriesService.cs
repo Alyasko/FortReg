@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using FortuneRegistry.Persistence;
 using FortuneRegistry.Shared.Models;
 
@@ -15,9 +17,9 @@ namespace FortuneRegistry.Core.Transactions
             _categoriesRepository = categoriesRepository;
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return _categoriesRepository.GetAll();
+            return await _categoriesRepository.QueryAllAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

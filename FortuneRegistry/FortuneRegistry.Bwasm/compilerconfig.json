@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/main.css",
+    "inputFile": "Styles/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/expenses.css",
+    "inputFile": "Styles/expenses.scss"
+  }
+]

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace FortuneRegistry.Shared.Models
 {
-    public class Category : IBaseDbModel
+    public class Category : BaseDbModel
     {
         public Category()
         {
@@ -17,6 +17,5 @@ namespace FortuneRegistry.Shared.Models
 
         public string Name { get; set; } = String.Empty;
         public IEnumerable<Category> SubCategories { get; set; } = Enumerable.Empty<Category>();
-        public int Id { get; set; }
     }
 }

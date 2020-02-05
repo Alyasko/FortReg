@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace FortuneRegistry.Shared.Models.Transactions
 {
     [JsonObject]
-    public class TransactionRequest : ITransaction
+    public class TransactionRequest : BaseDbModel, ITransaction
     {
         public DateTime? Date { get; set; }
         public decimal Amount { get; set; }
@@ -28,7 +28,5 @@ namespace FortuneRegistry.Shared.Models.Transactions
         public int OwnerId { get; set; }
 
         public TransactionType Type { get; set; }
-
-        public int Id { get; set; }
     }
 }

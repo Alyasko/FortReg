@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using FortuneRegistry.Persistence;
 using FortuneRegistry.Shared.Models;
 using FortuneRegistry.Shared.Models.Transactions;
@@ -9,37 +11,39 @@ namespace FortuneRegistry.Core.Transactions
 {
     public class TransactionsService
     {
-        public void Add(TransactionRequest transaction)
+        public Task AddAsync(TransactionRequest transaction, CancellationToken cancellationToken = default)
         {
-            if(transaction.Date == null)
+            if (transaction.Date == null)
                 transaction.Date = DateTime.UtcNow;
 
-            using var db = new TransactionsRepository();
+            var db = new TransactionsRepository();
             //var bson = db.Add(transaction);
+
+            return Task.CompletedTask;
         }
 
-        public IEnumerable<Transaction> GetAll()
+        public async Task<IEnumerable<Transaction>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            using var db = new TransactionsRepository();
-            return db.GetAll();
+            var db = new TransactionsRepository();
+            return await db.QueryAllAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Transaction> GetIncomes()
+        public async Task<IEnumerable<Transaction>> GetIncomesAsync(CancellationToken cancellationToken = default)
         {
-            using var db = new TransactionsRepository();
-            return db.GetIncomes();
+            var db = new TransactionsRepository();
+            return await db.GetIncomesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Transaction> GetExpenses()
+        public async Task<IEnumerable<Transaction>> GetExpensesAsync(CancellationToken cancellationToken = default)
         {
-            using var db = new TransactionsRepository();
-            return db.GetExpenses();
+            var db = new TransactionsRepository();
+            return await db.GetExpensesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public IEnumerable<Currency> GetCurrencies()
+        public async Task<IEnumerable<Currency>> GetCurrenciesAsync(CancellationToken cancellationToken = default)
         {
-            using var db = new CurrenciesRepository();
-            return db.GetAll();
+            var db = new CurrenciesRepository();
+            return await db.QueryAllAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

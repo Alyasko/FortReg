@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using FortuneRegistry.Persistence;
 using FortuneRegistry.Shared.Models;
 
@@ -15,9 +17,9 @@ namespace FortuneRegistry.Core.Transactions
             _familyMembersRepository = familyMembersRepository;
         }
 
-        public IEnumerable<FamilyMember> GetAll()
+        public async Task<IEnumerable<FamilyMember>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return _familyMembersRepository.GetAll();
+            return await _familyMembersRepository.QueryAllAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

@@ -14,6 +14,5 @@ namespace FortuneRegistry.Shared.Models.Transactions
         FamilyMember TargetMember { get; set; }
         FamilyMember Owner { get; set; }
         TransactionType Type { get; set; }
-        int Id { get; set; }
     }
 }
