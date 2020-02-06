@@ -6,10 +6,25 @@
              mc:Ignorable="d"
              x:Class="FortuneRegistry.XF.Views.DashboardPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Margin="0, 40, 0, 0" HorizontalTextAlignment="Center" FontSize="25" FontAttributes="Bold" TextColor="{StaticResource ColorPrimaryText}" Text="February 2020"></Label>
+
+            <StackLayout Grid.Row="1" Orientation="Vertical">
+                <Label TextColor="{StaticResource ColorGreen}" FontAttributes="Bold" FontSize="40" HorizontalOptions="Center" Text="150 000"></Label>
+                <Label TextColor="{StaticResource ColorTextGray}" FontAttributes="Bold" HorizontalOptions="Center" Text="CHF"></Label>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" Orientation="Vertical">
+                <Label TextColor="{StaticResource ColorRed}" FontAttributes="Bold" FontSize="40" HorizontalOptions="Center" Text="150"></Label>
+                <Label TextColor="{StaticResource ColorTextGray}" FontAttributes="Bold" HorizontalOptions="Center" Text="CHF"></Label>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

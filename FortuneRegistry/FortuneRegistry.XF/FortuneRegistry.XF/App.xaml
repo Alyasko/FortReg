@@ -9,12 +9,38 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
-            <Style TargetType="NavigationPage">
+            <Color x:Key="NavigationPrimary">#FF96FF</Color>
+            <Color x:Key="ColorRed">#B33A27</Color>
+            <Color x:Key="ColorGreen">#4E7F40</Color>
+            <Color x:Key="ColorPrimaryText">#1A2D3E</Color>
+            <Color x:Key="ColorLightText">#ABABAB</Color>
+            <Color x:Key="ColorBgGrayLight">#F4F4F4</Color>
+            <Color x:Key="ColorBgGray">#E5E5E5</Color>
+            <Color x:Key="ColorTextGray">#ABABAB</Color>
+            <Color x:Key="ColorIvory">#F1F3CF</Color>
+            <Color x:Key="ColorIvoryDark">#616344</Color>
+            
+
+            <!--<Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
+            </Style>-->
+
+            <Style x:Key="StyleGridRoot" TargetType="Grid">
+                <Setter Property="Padding" Value="15, 15, 15, 40" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorBgGray}"/>
+            </Style>
+
+            <Style x:Key="StyleBtnRed" TargetType="Button">
+                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorRed}"/>
+                <Setter Property="TextColor" Value="White"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
-    
+
 </Application>

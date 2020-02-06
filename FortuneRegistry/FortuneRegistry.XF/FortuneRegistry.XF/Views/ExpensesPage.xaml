@@ -3,48 +3,118 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
              mc:Ignorable="d"
              x:Class="FortuneRegistry.XF.Views.ExpensesPage">
     <ContentPage.Content>
-        <Grid Margin="0, 0, 0, 40">
+        <Grid Style="{StaticResource StyleGridRoot}">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ListView x:Name="LvExpenses" RowHeight="60">
-                <d:ListView.ItemsSource>
+            <StackLayout Margin="0, 0, 0, 20" Orientation="Vertical">
+                <Label Margin="0, 20, 0, 0"
+                   HorizontalTextAlignment="Center"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource ColorPrimaryText}"
+                   Text="Current month"></Label>
+                <Label TextColor="{StaticResource ColorRed}"
+                       FontAttributes="Bold"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       Text="150 CHF"></Label>
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Label Text="Planned" TextColor="{StaticResource ColorLightText}"/>
+                    <Label Text="1 500" TextColor="{StaticResource ColorPrimaryText}" FontAttributes="Bold"/>
+                    <Label Text="CHF" TextColor="{StaticResource ColorPrimaryText}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <ListView Grid.Row="1" x:Name="LvExpenses" RowHeight="55" SeparatorColor="#F4F4F4" ios:ListView.SeparatorStyle="FullWidth">
+                <ListView.ItemsSource>
                     <x:Array Type="{x:Type models:ExpenseListItem}">
-                        <models:ExpenseListItem Title="Flowers" Date="2017.04.05" Price="12.659"/>
-                        <models:ExpenseListItem Title="Taxi" Date="2017.04.05" Price="200"/>
-                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="150"/>
+                        <models:ExpenseListItem Title="Flowers" Date="2017.04.05" Price="-12.65" Tag="Food"/>
+                        <models:ExpenseListItem Title="Taxi" Date="2017.04.05" Price="-200" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
+                        <models:ExpenseListItem Title="Chocolate" Date="2017.04.05" Price="-150" Tag="Food"/>
                     </x:Array>
-                </d:ListView.ItemsSource>
+                </ListView.ItemsSource>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="16, 5, 10, 0">
+                            <Grid Padding="0, 5, 0, 5">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label FontSize="20" TextColor="Maroon" Grid.Row="0" d:Text="{Binding Price}"></Label>
-                                <Label TextColor="Gray" Grid.Row="0" Grid.Column="1" d:Text="{Binding Date}"></Label>
-                                <Label Grid.Row="1" d:Text="{Binding Title}"></Label>
+                                <Label FontSize="15"
+                                       TextColor="{StaticResource ColorPrimaryText}"
+                                       Grid.Row="0"
+                                       Text="{Binding Title}"/>
+
+                                <Label Grid.Row="1"
+                                       TextColor="{StaticResource ColorLightText}"
+                                       Text="{Binding Date}"
+                                       FontSize="10"/>
+
+                                <StackLayout HorizontalOptions="End" Orientation="Horizontal"
+                                             Grid.Row="0"
+                                             Grid.Column="1">
+                                    <Label HorizontalTextAlignment="End" TextColor="{StaticResource ColorRed}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       d:Text="{Binding Price}"></Label>
+                                    <Label HorizontalTextAlignment="End" TextColor="{StaticResource ColorRed}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       d:Text="CHF"></Label>
+                                </StackLayout>
+
+                                <StackLayout HorizontalOptions="End" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                    <Button HorizontalOptions="End"
+                                            FontSize="10"
+                                            Padding="20, 0, 20, 0"
+                                            CornerRadius="5"
+                                            Text="{Binding Tag}"
+                                            TextColor="{StaticResource ColorIvoryDark}"
+                                            BackgroundColor="{StaticResource ColorIvory}">
+                                    </Button>
+                                </StackLayout>
+
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Grid.Row="1" x:Name="BtnAddExpense" Text="Add"></Button>
+            <Button Style="{StaticResource StyleBtnRed}" Grid.Row="2" Text="Add"></Button>
         </Grid>
+
     </ContentPage.Content>
 </ContentPage>
