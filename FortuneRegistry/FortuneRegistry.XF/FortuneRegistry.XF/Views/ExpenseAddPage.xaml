@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
+             xmlns:local="clr-namespace:FortuneRegistry.XF.Helpers"
+             mc:Ignorable="d"
+             x:Class="FortuneRegistry.XF.Views.ExpenseAddPage"
+             NavigationPage.HasNavigationBar="false">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:MyDataTemplateSelector x:Key="templateSelector"></local:MyDataTemplateSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Style="{StaticResource StyleGridRoot}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Margin="0, 0, 0, 20" Orientation="Vertical">
+                <Label Margin="0, 20, 0, 0"
+                   HorizontalTextAlignment="Center"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource ColorPrimaryText}"
+                   Text="Current month"></Label>
+                <Label TextColor="{StaticResource ColorRed}"
+                       FontAttributes="Bold"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       Text="150 CHF"></Label>
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Label Text="Planned" TextColor="{StaticResource ColorLightText}"/>
+                    <Label Text="1 500" TextColor="{StaticResource ColorPrimaryText}" FontAttributes="Bold"/>
+                    <Label Text="CHF" TextColor="{StaticResource ColorPrimaryText}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <CarouselView x:Name="TheCarousel" Grid.Row="1" ItemTemplate="{StaticResource templateSelector}">
+                <d:CarouselView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Hey...</x:String>
+                        <x:String>Psssst...!</x:String>
+                        <x:String>Did you check out...</x:String>
+                        <x:String>The awesome new CarouselView</x:String>
+                        <x:String>In Xamarin.Forms 4.4?!</x:String>
+                        <x:String>🎠 🎉</x:String>
+                    </x:Array>
+                </d:CarouselView.ItemsSource>
+                <!--<CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Grid x:Name="GrStep1">
+                                <Grid.
+                            </Grid>
+                            <Grid IsVisible="false" x:Name="GrStep2">
+
+                            </Grid>
+                            <Grid IsVisible="false" x:Name="GrStep3">
+                                <Label Text="{Binding .}" HorizontalTextAlignment="Center" FontSize="Title" />
+                            </Grid>
+                            
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>-->
+            </CarouselView>
+
+            <StackLayout Grid.Row="2" Orientation="Vertical">
+                <Button Style="{StaticResource StyleBtnRed}"  Text="Next"></Button>
+                <Button Style="{StaticResource StyleBtnGray}" Text="Cancel"></Button>
+            </StackLayout>
+
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

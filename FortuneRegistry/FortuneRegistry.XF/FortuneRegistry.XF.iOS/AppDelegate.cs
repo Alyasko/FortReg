@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace FortuneRegistry.XF.iOS
 {
@@ -22,6 +23,8 @@ namespace FortuneRegistry.XF.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Forms.SetFlags("IndicatorView_Experimental");
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

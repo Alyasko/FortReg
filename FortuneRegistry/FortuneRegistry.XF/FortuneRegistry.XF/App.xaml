@@ -19,7 +19,7 @@
             <Color x:Key="ColorTextGray">#ABABAB</Color>
             <Color x:Key="ColorIvory">#F1F3CF</Color>
             <Color x:Key="ColorIvoryDark">#616344</Color>
-            
+
 
             <!--<Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
@@ -27,7 +27,7 @@
             </Style>-->
 
             <Style x:Key="StyleGridRoot" TargetType="Grid">
-                <Setter Property="Padding" Value="15, 15, 15, 40" />
+                <Setter Property="Padding" Value="15, 50, 15, 40" />
             </Style>
 
             <Style TargetType="Button">
@@ -36,10 +36,23 @@
             </Style>
 
             <Style x:Key="StyleBtnRed" TargetType="Button">
-                <Setter Property="CornerRadius" Value="10"/>
+                <Setter Property="Margin" Value="0, 10, 0, 0"/>
                 <Setter Property="BackgroundColor" Value="{StaticResource ColorRed}"/>
                 <Setter Property="TextColor" Value="White"/>
             </Style>
+
+            <Style x:Key="StyleBtnGreen" TargetType="Button">
+                <Setter Property="Margin" Value="0, 10, 0, 0"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorGreen}"/>
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+
+            <Style x:Key="StyleBtnGray" TargetType="Button">
+                <Setter Property="Margin" Value="0, 10, 0, 0"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorBgGray}"/>
+                <Setter Property="TextColor" Value="{StaticResource ColorPrimaryText}"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 

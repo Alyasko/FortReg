@@ -3,13 +3,121 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
              mc:Ignorable="d"
-             x:Class="FortuneRegistry.XF.Views.IncomePage">
+             x:Class="FortuneRegistry.XF.Views.IncomePage"
+             NavigationPage.HasNavigationBar="false">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid Style="{StaticResource StyleGridRoot}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Margin="0, 0, 0, 20" Orientation="Vertical">
+                <Label Margin="0, 20, 0, 0"
+                   HorizontalTextAlignment="Center"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource ColorPrimaryText}"
+                   Text="Current month"></Label>
+                <Label TextColor="{StaticResource ColorGreen}"
+                       FontAttributes="Bold"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       Text="150 000 CHF"></Label>
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Label Text="Planned" TextColor="{StaticResource ColorLightText}"/>
+                    <Label Text="100 000" TextColor="{StaticResource ColorPrimaryText}" FontAttributes="Bold"/>
+                    <Label Text="CHF" TextColor="{StaticResource ColorPrimaryText}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <ListView Grid.Row="1" x:Name="LvExpenses" RowHeight="55" SeparatorColor="#F4F4F4" ios:ListView.SeparatorStyle="FullWidth">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type models:ExpenseListItem}">
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                        <models:ExpenseListItem Title="Monthly sallary" Date="2020.05.01" Price="100000" Tag="Alex sallary"/>
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="0, 5, 0, 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label FontSize="15"
+                                       TextColor="{StaticResource ColorPrimaryText}"
+                                       Grid.Row="0"
+                                       Text="{Binding Title}"/>
+
+                                <Label Grid.Row="1"
+                                       TextColor="{StaticResource ColorLightText}"
+                                       Text="{Binding Date}"
+                                       FontSize="10"/>
+
+                                <StackLayout HorizontalOptions="End" Orientation="Horizontal"
+                                             Grid.Row="0"
+                                             Grid.Column="1">
+                                    <Label HorizontalTextAlignment="End" TextColor="{StaticResource ColorGreen}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Text="{Binding Price}"></Label>
+                                    <Label HorizontalTextAlignment="End" TextColor="{StaticResource ColorGreen}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       Text="CHF"></Label>
+                                </StackLayout>
+
+                                <StackLayout HorizontalOptions="End" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                    <Button HorizontalOptions="End"
+                                            FontSize="10"
+                                            Padding="20, 0, 20, 0"
+                                            CornerRadius="5"
+                                            Text="{Binding Tag}"
+                                            TextColor="{StaticResource ColorIvoryDark}"
+                                            BackgroundColor="{StaticResource ColorIvory}">
+                                    </Button>
+                                </StackLayout>
+
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Style="{StaticResource StyleBtnGreen}" Grid.Row="2" Text="Add"></Button>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>
