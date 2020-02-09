@@ -1,36 +1,37 @@
-﻿using System;
+﻿
+using FortuneRegistry.XF.ViewModels;
 using FortuneRegistry.XF.Views.ExpenseAdd;
 using Xamarin.Forms;
 
 namespace FortuneRegistry.XF.Helpers
 {
-    public class CustomCell
+    public class AddExpenseDataTemplateSelector : DataTemplateSelector
     {
-        public string Testo { get; set; }
-    }
+        public DataTemplate Step1DataTemplate { get; set; }
+        public DataTemplate Step2DataTemplate { get; set; }
+        public DataTemplate Step3DataTemplate { get; set; }
 
-    public class MyDataTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate SimpleTemplate { get; set; }
-        public DataTemplate ComplexTemplate { get; set; }
-
-        public MyDataTemplateSelector()
+        public AddExpenseDataTemplateSelector()
         {
-            SimpleTemplate = new DataTemplate(typeof(SimpleView));
-            ComplexTemplate = new DataTemplate(typeof(ComplexView));
+            Step1DataTemplate = new DataTemplate(typeof(AddExpenseStep1ContentView));
+            Step2DataTemplate = new DataTemplate(typeof(AddExpenseStep2ContentView));
+            Step3DataTemplate = new DataTemplate(typeof(AddExpenseStep3ContentView));
         }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            CustomCell cell = (CustomCell)item;
+            var cell = (int)item;
 
-            if (cell.Testo.Length > 5)
+            switch(cell)
             {
-                return ComplexTemplate;
-            }
-            else
-            {
-                return SimpleTemplate;
+                case 1:
+                    return Step1DataTemplate;
+                case 2:
+                    return Step2DataTemplate;
+                case 3:
+                    return Step3DataTemplate;
+                default:
+                    return null;
             }
         }
     }

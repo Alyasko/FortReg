@@ -11,7 +11,7 @@
              NavigationPage.HasNavigationBar="false">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:MyDataTemplateSelector x:Key="templateSelector"></local:MyDataTemplateSelector>
+            <local:AddExpenseDataTemplateSelector x:Key="AddExpenseDataTemplate"></local:AddExpenseDataTemplateSelector>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -41,33 +41,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <CarouselView x:Name="TheCarousel" Grid.Row="1" ItemTemplate="{StaticResource templateSelector}">
-                <d:CarouselView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Hey...</x:String>
-                        <x:String>Psssst...!</x:String>
-                        <x:String>Did you check out...</x:String>
-                        <x:String>The awesome new CarouselView</x:String>
-                        <x:String>In Xamarin.Forms 4.4?!</x:String>
-                        <x:String>🎠 🎉</x:String>
-                    </x:Array>
-                </d:CarouselView.ItemsSource>
-                <!--<CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                            <Grid x:Name="GrStep1">
-                                <Grid.
-                            </Grid>
-                            <Grid IsVisible="false" x:Name="GrStep2">
-
-                            </Grid>
-                            <Grid IsVisible="false" x:Name="GrStep3">
-                                <Label Text="{Binding .}" HorizontalTextAlignment="Center" FontSize="Title" />
-                            </Grid>
-                            
-                        </StackLayout>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>-->
+            <CarouselView Margin="0, 0, 0, 60" x:Name="TheCarousel" Grid.Row="1" ItemTemplate="{StaticResource AddExpenseDataTemplate}">
             </CarouselView>
 
             <StackLayout Grid.Row="2" Orientation="Vertical">

@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace FortuneRegistry.XF.Views.ExpenseAdd
 {
-    public partial class ComplexView : ContentView
+    public partial class AddExpenseStep3ContentView : ContentView
     {
-        public ComplexView()
+        public AddExpenseStep3ContentView()
         {
             InitializeComponent();
         }

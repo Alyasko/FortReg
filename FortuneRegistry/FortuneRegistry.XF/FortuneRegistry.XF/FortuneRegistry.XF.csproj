@@ -33,4 +33,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Views\ExpenseAdd\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\AddExpenseModel.cs" />
+  </ItemGroup>
 </Project>
