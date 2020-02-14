@@ -44,6 +44,10 @@ namespace FortuneRegistry.XF.ViewModels
             handler?.Invoke(this, new AddExpenseSteppingEventArgs() { NewStep = CurrentStep });
         }
 
+        public bool IsLastStep => CurrentStep == Steps.Count - 1;
+
+        public bool IsFirstStep => CurrentStep == 0;
+
         public List<int> Steps = new List<int>()
             {
                 1,

@@ -9,11 +9,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#FF96FF</Color>
-            <Color x:Key="ColorRed">#B33A27</Color>
+
+            <Color x:Key="ColorRed">#CA6E25</Color>
             <Color x:Key="ColorGreen">#4E7F40</Color>
             <Color x:Key="ColorPrimaryText">#1A2D3E</Color>
             <Color x:Key="ColorLightText">#ABABAB</Color>
+            <Color x:Key="NavigationPrimary">#1A2D3E</Color>
             <Color x:Key="ColorBgGrayLight">#F4F4F4</Color>
             <Color x:Key="ColorBgGray">#E5E5E5</Color>
             <Color x:Key="ColorTextGray">#ABABAB</Color>
