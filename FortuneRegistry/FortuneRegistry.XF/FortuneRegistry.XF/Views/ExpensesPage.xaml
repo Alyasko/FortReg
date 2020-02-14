@@ -6,8 +6,7 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
              mc:Ignorable="d"
-             x:Class="FortuneRegistry.XF.Views.ExpensesPage"
-             NavigationPage.HasNavigationBar="false">
+             x:Class="FortuneRegistry.XF.Views.ExpensesPage">
     <ContentPage.Content>
         <Grid Style="{StaticResource StyleGridRoot}">
             <Grid.RowDefinitions>
@@ -58,7 +57,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="0, 5, 0, 5">
+                            <Grid Padding="5, 5, 5, 5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition />

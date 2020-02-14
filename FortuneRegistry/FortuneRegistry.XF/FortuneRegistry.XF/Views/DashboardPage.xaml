@@ -4,8 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="FortuneRegistry.XF.Views.DashboardPage"
-             NavigationPage.HasNavigationBar="false">
+             x:Class="FortuneRegistry.XF.Views.DashboardPage">
     <ContentPage.Content>
         <Grid Style="{StaticResource StyleGridRoot}">
             <Grid.RowDefinitions>

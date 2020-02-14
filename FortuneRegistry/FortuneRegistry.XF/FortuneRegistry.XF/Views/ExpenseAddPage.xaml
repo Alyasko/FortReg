@@ -7,8 +7,7 @@
              xmlns:models="clr-namespace:FortuneRegistry.XF.Models;assembly=FortuneRegistry.XF"
              xmlns:local="clr-namespace:FortuneRegistry.XF.Helpers"
              mc:Ignorable="d"
-             x:Class="FortuneRegistry.XF.Views.ExpenseAddPage"
-             NavigationPage.HasNavigationBar="false">
+             x:Class="FortuneRegistry.XF.Views.ExpenseAddPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:AddExpenseDataTemplateSelector x:Key="AddExpenseDataTemplate"></local:AddExpenseDataTemplateSelector>
@@ -41,12 +40,12 @@
                 </StackLayout>
             </StackLayout>
 
-            <CarouselView Margin="0, 0, 0, 60" x:Name="TheCarousel" Grid.Row="1" ItemTemplate="{StaticResource AddExpenseDataTemplate}">
+            <CarouselView HorizontalScrollBarVisibility="Never" Margin="0, 0, 0, 60" x:Name="AddExpenseCarousel" Grid.Row="1" ItemTemplate="{StaticResource AddExpenseDataTemplate}">
             </CarouselView>
 
             <StackLayout Grid.Row="2" Orientation="Vertical">
-                <Button Style="{StaticResource StyleBtnRed}"  Text="Next"></Button>
-                <Button Style="{StaticResource StyleBtnGray}" Text="Cancel"></Button>
+                <Button Style="{StaticResource StyleBtnRed}"  Text="Next" x:Name="BtnNext" Clicked="BtnNext_Clicked"></Button>
+                <Button Style="{StaticResource StyleBtnGray}" Text="Cancel" x:Name="BtnCancel" Clicked="BtnCancel_Clicked"></Button>
             </StackLayout>
 
         </Grid>

@@ -13,7 +13,6 @@ namespace FortuneRegistry.XF.Views
 
         public async void BtnAddExpense_Clicked(System.Object sender, System.EventArgs e)
         {
-            await DisplayAlert("Info", "Hello!", "OK");
             await Navigation.PushModalAsync(new ExpenseAddPage());
         }
     }
