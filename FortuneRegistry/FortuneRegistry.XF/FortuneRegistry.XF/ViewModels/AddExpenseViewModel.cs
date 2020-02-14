@@ -12,7 +12,7 @@ namespace FortuneRegistry.XF.ViewModels
 
         public EventHandler<AddExpenseSteppingEventArgs> StepChanged;
 
-        public void SetStep(int step)
+        public void ScrollToStep(int step)
         {
             CurrentStep = step;
 
@@ -20,7 +20,7 @@ namespace FortuneRegistry.XF.ViewModels
             handler?.Invoke(this, new AddExpenseSteppingEventArgs() { NewStep = CurrentStep });
         }
 
-        public int CurrentStep { get; private set; }
+        public int CurrentStep { get; set; }
 
         public void NextStep()
         {

@@ -17,15 +17,11 @@ namespace FortuneRegistry.XF.Views
             InitializeComponent();
 
             AddExpenseCarousel.ItemsSource = _vm.Steps;
+            AddExpenseCarousel.IsSwipeEnabled = false;
+
             _vm.StepChanged += StepChanged;
 
-            _vm.SetStep(0);
-
-            //List<CustomCell> myCarousel = new List<CustomCell>();
-            //myCarousel.Add(new CustomCell { Testo = "ciao" });
-            //myCarousel.Add(new CustomCell { Testo = "ciao due" });
-
-            //TheCarousel.ItemsSource = myCarousel;
+            _vm.ScrollToStep(0);
         }
 
         private void StepChanged(object sender, AddExpenseSteppingEventArgs e)
