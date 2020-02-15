@@ -1,18 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FortuneRegistry.XF.Views.ExpenseAdd.AddExpenseStep2ContentView">
     <StackLayout Padding="5" VerticalOptions="End" Orientation="Vertical">
-        <Editor Keyboard="Numeric"
-                Placeholder="Amount">
+        <Editor Text="{Binding DataContext.Amount, Mode=TwoWay}"
+            Keyboard="Numeric"
+            Placeholder="Amount">
         </Editor>
-        <Picker>
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>USD</x:String>
-                    <x:String>EUR</x:String>
-                    <x:String>RUR</x:String>
-                    <x:String>UAH</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
+        <Picker ItemsSource="{Binding DataContext.Currencies}" SelectedItem="{Binding DataContext.Currency}">
         </Picker>
     </StackLayout>
 </ContentView>

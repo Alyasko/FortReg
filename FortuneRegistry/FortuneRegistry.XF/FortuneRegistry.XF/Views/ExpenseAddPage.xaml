@@ -8,11 +8,6 @@
              xmlns:local="clr-namespace:FortuneRegistry.XF.Helpers"
              mc:Ignorable="d"
              x:Class="FortuneRegistry.XF.Views.ExpenseAddPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:AddExpenseDataTemplateSelector x:Key="AddExpenseDataTemplate"></local:AddExpenseDataTemplateSelector>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Style="{StaticResource StyleGridRoot}">
             <Grid.RowDefinitions>
@@ -27,27 +22,34 @@
                    FontSize="20"
                    FontAttributes="Bold"
                    TextColor="{StaticResource ColorPrimaryText}"
-                   Text="Current month"></Label>
-                <Label TextColor="{StaticResource ColorRed}"
-                       FontAttributes="Bold"
-                       FontSize="40"
-                       HorizontalOptions="Center"
-                       Text="150 CHF"></Label>
-                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
-                    <Label Text="Planned" TextColor="{StaticResource ColorLightText}"/>
-                    <Label Text="1 500" TextColor="{StaticResource ColorPrimaryText}" FontAttributes="Bold"/>
-                    <Label Text="CHF" TextColor="{StaticResource ColorPrimaryText}"/>
+                   Text="Spent"></Label>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label TextColor="{StaticResource ColorRed}"
+                           FontAttributes="Bold"
+                           FontSize="40"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center"
+                           Text="{Binding AmountFormatted}"></Label>
                 </StackLayout>
+
+                <StackLayout HorizontalOptions="Center" Orientation="Horizontal">
+                    <Label Text="For" TextColor="{StaticResource ColorLightText}"/>
+                    <Label Text="{Binding CategoryFormatted}" TextColor="{StaticResource ColorPrimaryText}"/>
+                </StackLayout>
+
+                <Label Text="{Binding DescriptionFormatted}" 
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource ColorPrimaryText}"/>
             </StackLayout>
 
-            <CarouselView HorizontalScrollBarVisibility="Never" Margin="0, 0, 0, 60" x:Name="AddExpenseCarousel" Grid.Row="1" ItemTemplate="{StaticResource AddExpenseDataTemplate}">
+            <CarouselView HorizontalScrollBarVisibility="Never" Margin="0, 0, 0, 60" x:Name="AddExpenseCarousel" Grid.Row="1">
             </CarouselView>
 
             <StackLayout Grid.Row="2" Orientation="Vertical">
                 <Button Style="{StaticResource StyleBtnRed}"  Text="Next" x:Name="BtnNext" Clicked="BtnNext_Clicked"></Button>
                 <Button Style="{StaticResource StyleBtnGray}" Text="Cancel" x:Name="BtnCancel" Clicked="BtnCancel_Clicked"></Button>
             </StackLayout>
-
         </Grid>
 
     </ContentPage.Content>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using FortuneRegistry.XF.Helpers;
 using FortuneRegistry.XF.Models;
 using FortuneRegistry.XF.ViewModels;
+using FortuneRegistry.XF.Views.ExpenseAdd;
 using Xamarin.Forms;
 
 namespace FortuneRegistry.XF.Views
@@ -16,7 +18,18 @@ namespace FortuneRegistry.XF.Views
         {
             InitializeComponent();
 
-            AddExpenseCarousel.ItemsSource = _vm.Steps;
+            BindingContext = _vm;
+
+            var list = new List<object>()
+            {
+                new AddExpenseStep1ContentView() {DataContext = _vm},
+                new AddExpenseStep2ContentView() {DataContext = _vm},
+                new AddExpenseStep3ContentView() {DataContext = _vm}
+            };
+
+            AddExpenseCarousel.ItemTemplate = new AddExpenseDataTemplateSelector(list[0], list[1], list[2]);
+
+            AddExpenseCarousel.ItemsSource = list;
             AddExpenseCarousel.IsSwipeEnabled = false;
             AddExpenseCarousel.ScrollToRequested += AddExpenseCarouselOnScrollToRequested;
 
@@ -31,6 +44,12 @@ namespace FortuneRegistry.XF.Views
                 BtnCancel.Text = "Cancel";
             else if (!_vm.IsFirstStep && !_vm.IsLastStep)
                 BtnCancel.Text = "Back";
+
+            var ir = AddExpenseCarousel.ItemTemplate as AddExpenseDataTemplateSelector;
+
+            var t1 = ir.Step1DataTemplate.Values.FirstOrDefault();
+            var t2 = ir.Step2DataTemplate;
+            var t3 = ir.Step3DataTemplate;
 
             BtnNext.Text = _vm.IsLastStep ? "Save" : "Next";
         }

@@ -30,7 +30,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Views\ExpenseAdd\" />
   </ItemGroup>
   <ItemGroup>
